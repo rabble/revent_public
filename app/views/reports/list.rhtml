@@ -1,0 +1,31 @@
+<div id='detail-container'>
+	<div class="intro-title">
+		<%= @calendar.name %> Reports
+	</div>
+	<div class="report_add">
+    Add Your Own <%= link_to 'Report of the Event',  :permalink => @calendar.permalink, :controller => "reports", :action => "new" %>
+	</div>
+	<div class="intro-text">
+		<br>There are <%= @calendar.reports.published.count %> reports. 
+	</div>
+	<div id='report-search'>
+    <% form_tag :permalink => @calendar.permalink, :controller => "reports", :action => "search", :zip => nil, :state => nil do -%>
+       Enter Zip Code to Find a Report Near You:
+        <%= text_field_tag "zip", '', {:size=>10} %>
+        <%= submit_tag "GO" %>
+      <% end -%>
+  </div>
+  <%= @search_results_message %>
+<hr>	
+<div class='pagination-footer'>
+  <%= will_paginate @reports %>
+</div>
+
+  <%= render :partial => 'report', :collection => @reports %>
+
+  <br><br><div class='pagination-footer'>
+    <%= will_paginate @reports %>
+  </div>
+</div>
+
+ <%= render :partial =>'reports/report_nav' %>

@@ -1,0 +1,75 @@
+quentin:
+  id: 1
+  login: quentin
+  email: quentin@example.com
+  first_name: Quentin
+  last_name: Example
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  #crypted_password: "ce2/iFrNtQ8=\n" # quentin, use only if you're using 2-way encryption
+  created_at: <%= 5.days.ago.to_s :db %>
+  activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
+  site_id: 2
+aaron:
+  id: 2
+  login: aaron
+  email: aaron@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  activation_code: aaronscode # only if you're activating new signups
+  created_at: <%= 1.days.ago.to_s :db %>
+  site_id: 2
+matt:
+  id: 3
+  login: matt
+  email: matt@truemajority.radicaldesigns.org
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  first_name: Matt
+  last_name: Holland
+  phone: (802) 860-6858
+  street: 191 Bank Street
+  street_2: Third Floor
+  city: Burlington
+  state: VT
+  postal_code: 05401
+action_host:
+  id: 4
+  login: hosty
+  email: host@daysofaction.org
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  first_name: Hosty
+  last_name: McHost
+  phone: (415) 123-4567
+  street: 123 main st
+  street_2: apt 1
+  city: San Francisco
+  state: CA
+  postal_code: 94110
+action_attendee:
+  id: 5
+  login: attendee
+  email: attendee@daysofaction.org
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  first_name: Attendee
+  last_name: McAttender
+  phone: (415) 234-5678
+  street: 321 market st
+  street_2: apt 2
+  city: San Francisco
+  state: CA
+  postal_code: 94103
+molly:
+  id: 6 
+  login: molly
+  email: molly.test@daysofaction.com
+  first_name: molly
+  last_name: tester
+  site_id: 5
+
+

@@ -1,0 +1,48 @@
+- content_for :header do 
+  = javascript_include_tag 'effects'
+#login
+  %h1
+    You Must Login to Continue
+  %p
+    First time here?  
+    %a{:href => "#first-time" }
+      Scroll down 
+    to get your password and manage your event.
+  - form_tag do
+    %p
+      %label{ :for => "login" }
+        %b Email:
+      %br/
+      = text_field_tag 'email'
+    %p
+      %label{ :for => "password" }
+        %b Password:
+      %br/
+      = password_field_tag 'password'
+    %p
+      = submit_tag 'Log in'
+    = link_to_function 'Forgot your Password?', visual_effect(:toggle_blind, 'remind')
+  #remind{ :style => "display:none;" }
+    %p Enter your email address below and we will send you a link to reset your password.
+    %p If you don't receive your requested password in your e-mail, check to see if it got trapped by a Spam Filter or got stuck in your "Junk E-Mail Folder"
+    - form_tag '/account/forgot_password' do 
+      %p
+        %label{ :for => "login" }
+          %b Email:
+        %br/
+        = text_field_tag 'email'
+      = submit_tag 'Send'
+  %hr/
+  %br/
+  %h1 First Time Logging In?
+  %a{ :name => 'first-time' }
+  %p Enter your email address below and we will send you a link to create a new password.
+  %p If you don't receive your requested password in your e-mail, check to see if it got trapped by a Spam Filter or got stuck in your "Junk E-Mail Folder"
+  #activate
+    - form_tag '/account/send_activation' do 
+      %p
+        %label{ :for => "login" }
+          %b Email:
+        %br/
+        = text_field_tag 'email'
+      = submit_tag 'Send'

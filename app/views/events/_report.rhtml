@@ -1,0 +1,24 @@
+<%# cache("events/_report/event_#{report.id}_#{report.updated_at.to_i}_list_item") do %>
+	<div class="event-list-element">
+		<div class="event-list-city">
+		
+		<%= link_to white_list("#{report.city}, #{report.state}"), :permalink => report.calendar.permalink, :controller => 'events', :action => 'show', :id => report.id %>
+		
+
+		</div>
+		<div class="event-list-location">
+     		<%= white_list report.name %>- <i><%= report.start.strftime('%m/%e') %></i>
+		</div>
+		<div class="event-list-address">
+			<%#= report.address %>
+		</div>
+<%# end %>
+
+
+<% if report.instance_variable_get(:@distance_from_search) -%>
+<div class="event-list-miles">
+  <%= report.instance_variable_get(:@distance_from_search).round %> miles away
+</div>
+<% end -%>
+
+	</div>

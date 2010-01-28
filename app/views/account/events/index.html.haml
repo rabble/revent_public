@@ -1,0 +1,26 @@
+= render "account/menu"
+%br/
+%br/
+#profile_event_dashboard
+  %p.profile_subtitle
+    Events You are Hosting
+  %p
+    %table
+      %tr.profile_header_row
+        %td/
+        %td City
+        %td State
+        %td Name
+      = render :partial => 'event', :collection => @hosting, :locals => {:hosting => true}
+    %br/
+  %p.profile_subtitle
+    Events You are Attending
+  %p
+    %table
+      %tr.profile_header_row
+        %td/
+        %td City
+        %td State
+        %td Name
+      = render :partial => 'event', :collection => @attending, :locals => {:hosting => false}
+    %br/

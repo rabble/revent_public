@@ -1,0 +1,58 @@
+The source code for rEvent is released under the GNU General Public License:
+http://www.gnu.org/licenses/gpl.html
+
+REVENT DISTRIBUTED EVENT ORGANIZING TOOL
+a RadicalDesigns project
+
+  The Radical Designs distributed event tool is designed to aid organizers in
+  planning and executing national days of action or house parties. The tool is a full
+  featured event planning system that includes host signup, participant RSVP, host
+  management features and extensive report back tools. The tool integrates with
+  Democracy In Action so that all user and transactional data can be queried.
+
+Event Tool Features:
+ Event Display
+  * Geo location and mapping:  All events are geo located and then plotted on a
+    series of Flash and Google based maps depending on the current view of the
+    event or search.
+  * Event Searching:  Users can search for events by date and geographical
+    location.
+  * Email Triggers:  Customized emails can be sent to event hosts and
+    participants after they signup to host or attend an event via DIA and/or the
+    rEvent system,.
+  * Event Updates:  Hosts have the ability to post ongoing blog style updates
+    about the event.
+  * File and image attachment:  Event host can upload pictures flyer or other
+    files to attache to events.
+  * Host Profile Pages:  Events hosts have individual pages that show their
+    contact information and a picture.
+  * Congressional District Matching:  Events can be mapped to congressional
+    district based on their zip code or address.
+  * Event Types and Tagging:  Special event types and tags can be created to sort
+    and search for events by different criteria.
+  * Public/Private Events:  Allow the option for event to be private. Private
+    events will be accessible by a direct web address but will not show up on the
+    event map or the event search pages.
+  * Multiple calendars for different simultaneous mobilizations.
+
+Event Report Back System
+  Users and event hosts can report back on the outcome of events. The report back
+  tool includes user narratives, photo uploads with Flickr integration and
+  slideshows, YouTube vide integration, press coverage reporting, and mapping of
+  event reports. The report back tool also includes a javascript power badge for
+  embedding featured report backs on other websites.
+
+Event Host Management Tools
+  Event hosts have the ability to log into the tool and manage all aspects of their
+  event. Host can update event information, manage their profile, view and email
+  event participants, invite other event participants, and attach images and
+  documents. Event host can also manage event report back information.
+
+Administrator Management Tools
+  System administrators will be able to view edit and manage all events and reset
+  user passwords.
+
+Democracy In Action (DIA) Database Integration 
+  All users and event data will be mirrored into DIA. This data includes event
+  information, event hosting, event attendance and user profiles. DIA trigger
+  emails can also be called from the event system. *(subscription to DIA required)

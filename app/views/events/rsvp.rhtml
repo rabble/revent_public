@@ -1,0 +1,117 @@
+<% if false %>
+please rsvp
+<% form_for :rsvp, @rsvp do |f| %>
+<%= f.text_area 'comment' %><br/>
+<%= f.text_field 'guests' %><br/>
+<%= submit_tag %>
+<% end -%>
+<% end %>
+
+<h3>RSVP</h3>Please Let us know you will be coming by RSVPing below
+
+<div id="signupForm" class="signupForm">
+
+<form name="data" action="http://democracyinaction.org/dia/processEditValues.jsp" method="POST" :id ="event-rsvp-form">
+<input type="hidden" name="organization_KEY" value="1879">
+<input type="hidden" name="successMessage" value="<h4>Thank you for signing up!</h4>">
+<input type=hidden name="redirect" value="http://democracyinaction.org/dia/organizations/SIU/event/thankYou.jsp">
+
+
+
+<INPUT type=hidden name="table" value="supporter">
+
+
+<TABLE class="dia_field">
+
+
+<INPUT type=hidden name="key" value="0">
+<tr valign="top"><td align="right" class="dia_field_name">Title</td>
+
+    <TD>
+      <select name="Title" id="dataTitle" size="1">
+      <option value="" SELECTED>Select Title
+      <option value="Mr.">Mr.
+      <option value="Mrs.">Mrs.
+      <option value="Ms.">Ms.
+      <option value="Dr.">Dr.
+      <option value="Rabbi">Rabbi
+      <option value="Fr.">Fr.
+      <option value="Rev.">Rev.
+      <option value="Hon.">Hon.
+      <option value="Br.">Br.
+      <option value="Sr.">Sr.
+      <option value="Rep.">Rep.
+      <option value="Sen.">Sen.
+      <option value="other">Other
+      </select>
+
+      <SCRIPT>
+        //Set the value of the option box
+        var i;
+        var field=document.getElementById('dataTitle');
+        for (i=0; i<field.options.length;i++){
+          if (field.options[i].value==''){
+            field.options[i].selected=true;
+            break;
+          }
+        }
+      </SCRIPT>
+      
+      </TD>
+      <TD class="dia_required"></TD>
+      </TR><TR>
+       <td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_First_Name">First Name</td><td valign="top"><INPUT class='inputStyle'    size=30 maxlength=32 id="dataFirst_Name" NAME="First_Name" VALUE=""></INPUT></td><td class="dia_required"></td>
+    </TR><TR><td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_Last_Name">Last Name</td><td valign="top"><INPUT class='inputStyle'    size=30 maxlength=64 id="dataLast_Name" NAME="Last_Name" VALUE=""></INPUT></td><td class="dia_required"></td>
+    </TR><TR><td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_Email">Email</td><td valign="top"><INPUT class='inputStyle'    size=30 maxlength=64 id="dataEmail" NAME="Email" VALUE=""></INPUT></td><td class="dia_required"></td>
+
+    </TR><TR><td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_Phone">Phone</td><td valign="top"><INPUT class='inputStyle'    size=16 maxlength=16 id="dataPhone" NAME="Phone" VALUE=""></INPUT></td><td class="dia_required"></td>
+    </TR><TR><td align="right" class="dia_field_name">Zip/Postal Code</td><td><INPUT class='inputStyle' id="dataZip"  type="number" size=10 maxlength=10 NAME="Zip"  VALUE=""></INPUT> 
+      
+      </td>
+      <td class="dia_required">
+      
+      </td></TR><TR>
+</TR></TABLE>
+
+<input type="hidden" name="updateRowValues" value="true">
+
+
+<input type="hidden" name="link" value="custom">
+
+<input type="hidden" name="linkKey" value="0">
+
+
+<INPUT type=hidden name="table" value="supporter_custom">
+
+
+<TABLE class="dia_field">
+
+
+<INPUT type=hidden name="key" value="0">
+<tr valign="top">
+</TR></TABLE>
+
+<input type="hidden" name="updateRowValues" value="true">
+
+
+ <input type="hidden" name="_Status" value="Signed Up">
+<input type="hidden" name="email_trigger_KEYS" value="0,2654">
+
+
+<input type="hidden" name="_Type" value="Supporter">
+<input type="hidden" name="link" value="event">
+<input type="hidden" name="linkKey" value="<%= @event.democracy_in_action_key %>">
+<input type="hidden" name="successMessage" value="Thank you for signing up!  We look forward to seeing you --">
+
+<input type="hidden" name="link" value="tracking_code">
+<input type="hidden" name="linkKey" value="0">
+
+<input type="hidden" name="link" value="groups">
+<input type="hidden" name="linkKey" value="50839">
+        
+<input type="hidden" name="link" value="groups">
+<input type="hidden" name="linkKey" value="50837">
+
+<input type="submit" value="Sign up!">
+</form>
+</div>

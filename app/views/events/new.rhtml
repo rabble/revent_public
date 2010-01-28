@@ -1,0 +1,266 @@
+<%  
+  @event.start = (@calendar.suggested_event_start ? [@calendar.suggested_event_start, Time.now].max : Time.now)
+  @event.start = @event.start.beginning_of_day + 12.hours
+  @event.end = @event.start + 2.hours 
+  @hostform = @calendar.hostform
+-%>
+
+<h1>
+	<% if @hostform and @hostform.title -%>
+	  <%= @hostform.title %>
+	<% else -%>
+	   Organize an Action 
+	<% end -%>
+</h1>
+<p class="text">
+	<% if @hostform and @hostform.intro_text -%>
+	  <%= @hostform.intro_text %>
+	<% else -%>
+	   Sign up below
+		<p>Be a part of our Day of Action.&nbsp; Join us by organizing a demonstration!&nbsp; 
+			Fill out the form below if you can host an event in your community.&nbsp; 
+		</p>
+	<% end -%>
+</p>
+
+<% form_for :event, @event, :url => url_for(:permalink => @calendar.permalink, :controller => 'events', :action => 'create'), :html => {:id => 'event-signup-form', :multipart => true} do |f| -%>
+  
+    <div id="profile" class="profileInformation">
+      <%= error_messages_for 'user' %>
+      <%= error_messages_for 'event' %>
+		<em>*Required fields</em><br />
+      <h3>Your Information</h3>
+      <% fields_for :user, @user do |user| %>
+      
+      <% if @hostform and @hostform.dia_user_tracking_code %>
+        <%= hidden_field_tag "user[democracy_in_action][supporter][Tracking_Code]", @hostform.dia_user_tracking_code %>
+	  <%- end %>
+      
+      <% if @hostform and @hostform.dia_trigger_key%>
+      	<%= hidden_field_tag "user[democracy_in_action][supporter][email_trigger_KEYS]", @hostform.dia_trigger_key %>
+      <%- end %>
+
+      <% if @hostform and @hostform.dia_group_key %>
+      	<%=  hidden_field_tag "user[democracy_in_action][supporter][link][groups]",  @hostform.dia_group_key %>
+      <%- end %>
+   
+     
+      <div id="customFields" class="standardFields">
+        <table class="dia_field">
+          <tbody>
+            <tr valign="top">
+              <td valign="top" class="dia_field_name">*First Name</td>
+              <td valign="top"><%= user.text_field "first_name", :id => 'dataFirst_Name', :maxlength => "32", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your first name", :class => "required inputStyle" %></td>
+              
+            </tr>
+            <tr>
+              <td valign="top" class="dia_field_name">*Last Name</td>
+              <td valign="top"><%= user.text_field "last_name", :id => "dataLast_Name", :maxlength => "64", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your last name", :class => "required inputStyle" %></td>
+              
+            </tr>
+            <tr>
+              <td valign="top" class="dia_field_name">*Email</td>
+              <td valign="top"><%= user.text_field "email", :id => "dataEmail", :maxlength => "64", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter a valid email address", :class => "required validate-email inputStyle" %></td>
+              
+            </tr>
+            <tr>
+              <td valign="top" class="dia_field_name">*Phone</td>
+              <td valign="top"><%= user.text_field "phone", :id => "dataPhone", :maxlength => "16", :size => "16", :style => "background-color: #ebd897;", :title => "Please enter your phone number", :class => "required inputStyle" %></td>
+              
+            </tr>
+            <tr>
+              <td colspan="2" valign="top"  class="dia_field_name">Show phone number on your host profile?&nbsp;&nbsp;<%= user.check_box "show_phone_on_host_profile", :style => "background-color: #ebd897;", :class => "inputStyle" %></td>
+            </tr>
+            <tr>
+              <td valign="top" class="dia_field_name">*Street</td>
+              <td valign="top"><%= user.text_field "street", :id => "dataStreet", :maxlength => "64", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your street address", :class => "required inputStyle" %></td>
+              
+            </tr>
+            <tr>
+              <td valign="top" class="dia_field_name">*City</td>
+              <td valign="top"><%= user.text_field "city", :id => "dataCity", :maxlength => "32", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your city", :class => "required inputStyle" %></td>
+              
+            </tr>
+            <tr>
+            
+              <td valign="top"  class="dia_field_name">*State/Region</td>
+              <td><%= user.select "state", DemocracyInAction::Helpers.state_options_for_select(:include_none=>true), {}, :title => "Please select your state", :class => "required validate-selection", :style => "background-color: #ebd897;", :size => "1", :id => "dataState" %>
+              
+     
+              </td>
+              
+            </tr>
+            <tr>
+              <td  class="dia_field_name">*Zip Code</td>
+              <td><%= user.text_field "postal_code", :style => "background-color: #ebd897;", :maxlength => "10", :size => "10", :id => "dataZip", :title => "Please enter your zip code", :class => "required inputStyle" %></td>
+             
+            </tr>
+            <tr>
+              <td valign="top" colspan="2">A picture for your host profile <%= file_field_tag "profile_image[uploaded_data]", :class => "inputStyle" %></td>
+            </tr>
+ 
+          </tbody>
+          </table>
+      </div>
+
+    <% end -%>
+    </div>
+    <div id="eventInformation" class="eventInformation">
+      <h3>Event Information<br /></h3>
+      <% if @hostform and @hostform.event_info_text %>
+      	<p><strong><font color="#ff0000"><em><%= @hostform.event_info_text %></em></font></strong></p>
+      <%- end %>
+      <div id="eventFields" class="eventFields">
+        <table class="dia_field">
+          <tbody>
+				<% if @categories.any? -%>
+			  		<tr valign="top">
+	              <td valign="top"  class="dia_field_name">
+	                <div align="left">*Event Type:</div>
+	              </td>
+	              <td valign="top">
+	                <%= f.select "category_id", @categories, {:include_blank => true}, {:title => "Please select your event type", :class => "required validate-selection", :style => "background-color: #ebd897;", :size => "1", :id => "dataEvent_Category_Id" } %>
+	              </td>
+	            </tr>
+				<% end -%>
+
+            <tr valign="top">
+              <td valign="top"  class="dia_field_name">
+                <div align="left">*Event Name:</div>
+              </td>
+              <td valign="top">
+                <%= f.text_field "name", :id => "dataEvent_Name", :maxlength => "64", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your event's name", :class => "required inputStyle" %>
+              </td>              
+            </tr>
+            <tr>
+              <td valign="top"  class="dia_field_name" colspan="2">
+                <div align="left">*Description:<br />                  
+                  <%= f.text_area "description", :title => "Please enter your event's description", :class => "required", :rows => "7", :cols => "57", :style => "background-color: #ebd897;", :id => "dataDescription" %>
+                </div>
+              </td>
+            </tr>
+            <tr valign="top">
+              <td valign="top"  class="dia_field_name">
+                <div align="left">*Street Address:</div>
+              </td>
+              <td valign="top">
+               <div id="event_address">
+                  <%= f.text_field "location", :maxlength => "256", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your event's address", :class => "required inputStyle" %>
+               </div>
+              </td>  
+            </tr>
+
+            <tr valign="top">
+              <td valign="top"  class="dia_field_name">
+                <div align="left">Additional Directions:</div>
+              </td>
+              <td valign="top">
+                &nbsp;<%= f.text_area "directions", :rows => "2", :cols => "23", :title => "Please enter directions to your event" %>
+              </td>  
+            </tr>             
+
+            <tr>
+              <td valign="top" class="dia_field_name">
+                <div align="left">*City:</div>
+              </td>
+              <td valign="top">
+              <%= f.text_field "city", :id => "dataEventCity", :maxlength => "128", :size => "30", :style => "background-color: #ebd897;", :title => "Please enter your event's city", :class => "required inputStyle" %></td>
+             
+            </tr>
+            <tr>
+              <td valign="top"  class="dia_field_name">
+                <div align="left">*State:</div>
+              </td>
+              <td><%= f.select "state", DemocracyInAction::Helpers.state_options_for_select(:include_none=>true), {}, :title => "Please choose your event's state", :class => "required validate-selection", :style => "background-color: #ebd897;", :size => "1", :id => "dataEventState" %></td>
+              
+            </tr>
+            <tr>
+              <td  class="dia_field_name">
+                <div align="left">*Zip Code:</div>
+              </td>
+              <td>
+              <%= f.text_field "postal_code", :id => 'postal_code', :maxlength => "16", :size => "16", :style => "background-color: #ebd897;", :title => "Please enter your event's zip code", :class => "required inputStyle" %>&nbsp;&nbsp;
+              <span id="spinner" style="font-style: italic; font-size: 90%; display: none;"><%= image_tag 'spinner.gif' %> looking for nearby events</span></td>
+				  <%= observe_field :postal_code,
+										 :on => 'blur',
+										 :update => 'nearbyEvents',
+										 :before => "Element.show('spinner')", 
+										 :complete => "Element.hide('spinner')", 
+										 :url => {:action => 'nearby_events', :only_path => false},
+										 :with => "'postal_code=' + encodeURIComponent(value)" %>
+              
+			<tr>
+				  <td colspan="2">
+					 <div id='nearbyEvents'/>
+				  </td>
+			</tr>
+			<tr valign="top">
+        
+              <td valign="top" colspan=2>
+              Privacy and Searches:<br>
+                <% @event.private = false -%>
+                <%= f.radio_button "private", "false", :id => "dataEvent_Private", :title => "Please enter your event's public status",  :class => "inputStyle"  %> Please make this event public, so anyone may search for it.<br>
+                 <%= f.radio_button "private", "true",  :id => "dataEvent_Private", :title => "Please enter your event's public status", :class => "inputStyle" %> Please make this event private, so it will not show up in any public listings.
+              </td>
+            
+            </tr>
+			
+            </tr>
+            <tr>
+              <td valign="top"  class="dia_field_name" colspan="2">
+					 <table>
+						<tr>
+							<td><div align="left">*Start</div></td>
+							<td>
+                <%= f.datetime_select 'start', :minute_step => 15, :twelve_hour => true, :html => {:style => "background-color: #ebd897;"} %>
+              </td>
+						</tr>
+						<tr>
+							<td><div align="left">*End</div></td>
+							<td><%= f.datetime_select 'end', :minute_step => 15, :html => {:style => "background-color: #ebd897;"}, :twelve_hour => true %>
+              </td>
+						</tr>							
+					 </table>
+              </td>
+            </tr>
+            <tr valign="top">
+              <td valign="top"  class="dia_field_name">
+                <div align="left">Maximum Attendees:</div>
+              </td>
+              <td valign="top">
+                <%= f.text_field "max_attendees", :id => "dataEvent_Max",  :size => "16", :title => "Please enter your event's maximun atendees"  %>
+              </td>
+              
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+        
+      	<% if @hostform and @hostform.redirect %>
+      		<%= hidden_field_tag "redirect",  @hostform.redirect %>
+      	<%- end %>
+        
+        <%= hidden_field_tag "event[democracy_in_action][event][Maximum_Attendees]", 10000 %>
+        <%= hidden_field_tag "event[democracy_in_action][event][Status]", "Unconfirmed" %>
+
+		<% if @hostform and @hostform.dia_event_tracking_code %>
+        	<%= hidden_field_tag "event[democracy_in_action][event][Default_Tracking_Code]", @hostform.dia_event_tracking_code %>
+        <%- end %>
+
+        
+        <p align="center">
+        <% if @hostform and @hostform.pre_submit_text %>
+         <br><%= @hostform.pre_submit_text %>. <br>
+        <%- end %>
+        <br /><input type="submit" value="Submit" />
+				<%= javascript_include_tag "validation.js" %>
+        <script type="text/javascript" language="javascript">
+          var valid = new Validation("event-signup-form", {useTitles : true});
+        </script>
+        </p>
+      </div>
+    </div>
+<% end -%>
+
+
+

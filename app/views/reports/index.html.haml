@@ -1,0 +1,45 @@
+= render :partial => 'events/nav'
+#national-container
+  .intro-title
+    = @calendar.name 
+    Reports
+  #national-intro
+    %p.view-all
+      View 
+      = link_to "All Reports", :permalink => @calendar.permalink, :controller => "reports", :action => "list"  
+      of the 
+      = @calendar.name
+    .report_add
+      = link_to 'Add Your Own Report', :permalink => @calendar.permalink, :controller => "reports", :action => "new"
+    .national-intro-directions
+      %br/
+      Click on a state or enter your zip code to find a report from an event near you...
+  #national-map-container
+    #national-map-search
+      %table{ :cellpadding => "8" }
+        %tr
+          %td{ :valign => "top" }
+            %b Search by:
+          %td
+            - form_tag :permalink => @calendar.permalink, :action => 'search' do 
+              Zip Code:  
+              = text_field_tag 'zip', nil, :size=>10
+              = submit_tag "GO"
+              %br/
+              %b OR 
+              State:
+              = select_tag 'state', us_state_options_for_select( '', {:show => :abbreviations, :include_blank => true}), :onchange => "window.location.href='/#{@calendar.permalink}/reports/search/state/' + this.value"
+    = render :partial => "flashmap"
+  .national-intro-count
+    %p
+      %img{ :src => "http://s3.amazonaws.com/events.radicaldesigns.org/images/green_dot.png" }/
+      Green Dot = Events with Reports  |
+      %img{ :src => "http://s3.amazonaws.com/events.radicaldesigns.org/images/red_dot.png" }/
+      Red Dot = Events without Reports
+    /
+      There are 
+      = @calendar.events.with_reports.count
+      reports from  
+      @calendar.events.count 
+      scheduled events.
+  = render :partial =>'reports/report_nav'

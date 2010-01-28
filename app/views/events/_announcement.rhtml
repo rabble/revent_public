@@ -1,0 +1,4 @@
+<hr>
+<h3><%= white_list(announcement.title) %></h3>
+<p><%= announcement.created_at.to_s(:short) %><br>
+<%= white_list(simple_format(announcement.body)) %></p>

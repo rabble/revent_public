@@ -1,0 +1,9 @@
+<div class="banner">Editing calendar</div>
+
+<% form_tag url_for(:action => 'update', :id => @calendar) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', url_for(:action => 'show', :id => @calendar) %> |
+<%= link_to 'Back', url_for(:action => 'list') %>

@@ -1,0 +1,7 @@
+<% unless @other_state_events.empty? %>
+  We need two events in each state, one for each Senate office, so if there are already two events in your state, then please RSVP to one of the events below:<br />
+  <% for other_state_events in @other_state_events %>
+    <%= link_to other_state_events.name, :permalink => @calendar.permalink, :controller => '/events', :action => 'show', :id => other_state_events.id %>
+    <%= other_state_events.address %><br/>
+  <% end %>
+<% end %>

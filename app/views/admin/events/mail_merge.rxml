@@ -1,0 +1,23 @@
+xml.instruct! :xml, :version=>"1.0" 
+xml.events do
+  for event in @calendar.events
+    xml.event do
+      xml.id(event.id)
+      xml.name(event.name)
+      xml.city(event.city)
+      xml.state(event.state)
+      xml.location(event.location)
+      xml.district(event.district)
+      xml.host do
+        if event.host
+          xml.first_name(event.host.first_name)
+          xml.last_name(event.host.last_name)
+          xml.address([event.host.street, event.host.street_2].compact.join("\n"))
+          xml.city(event.host.city)
+          xml.state(event.host.state)
+          xml.postal_code(event.host.postal_code)
+	end
+      end
+    end
+  end
+end

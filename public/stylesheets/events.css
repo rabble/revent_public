@@ -1,0 +1,554 @@
+
+/**** MASTER CSS ****/
+
+body { line-height: auto; }
+
+th,td,p {
+line-height: auto; 
+}
+h1 {
+font-size: 22px;
+}
+#detail-container{ 
+PADDING-TOP: 0px;
+PADDING-BOTTOM: 0px;
+}
+
+.intro-text{
+PADDING-BOTTOM: 10px;
+}
+
+#revent-main {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.intro-title { 
+font-size:21px;
+font-weight: bold;
+PADDING-BOTTOM: 10px;
+}
+
+.login-box { 
+text-align:right
+}
+
+
+/**** TOOL BARS ****/
+.flash{
+  border:1px solid black;
+  background-color:#cccccc; color:#000000;
+  padding: 5px 5px 5px 15px;
+  margin:20px;
+}
+#flash{
+border:1px solid black; 
+background-color:#cccccc; color:#000000;
+padding: 5px 5px 5px 15px;
+margin:20px;
+}
+#developer{
+border:1px solid black; 
+background-color:#cccccc; color:#000000;
+padding: 5px 5px 5px 15px;
+margin:20px;
+}
+#admin{
+border:1px solid black; 
+background-color:#FFFFCC; color:000000;
+padding: 5px 5px 5px 15px;
+margin:20px;
+}
+
+
+/**** REPORT LIST PAGE ****/
+
+.report-list-element{
+display:block;
+PADDING-BOTTOM: 10px;
+PADDING-TOP: 10px;
+}
+.report-list-image  {
+	float: left;
+	height: 100px;
+	padding-right: 10px; 
+	
+	}
+.report-list-image  img{
+	border:1px solid black; 
+
+	}
+
+.report-list-basics {
+
+	}
+.report-list-title {
+        font-size:17px;
+	display: block;
+	margin-bottom: 8px;
+       font-weight:bold;
+	}
+.report-list-title a{
+	}
+
+.report-list-text {
+        font-size:12px;
+
+        line-height:18px;
+	margin-bottom: 2px;
+	}
+.report-list-more {
+	margin-bottom: 2px;
+         text-align:right;
+         font-size:12px;
+	}
+
+.report-list-more a{
+	}
+
+
+#report-search{
+
+border:1px solid black; 
+background-color:#cccccc; color:#000000;
+padding: 5px 5px 5px 10px;
+margin-left:10px;
+margin-bottom:10px;
+	color:#C42021;
+font-size:13px;
+
+	}
+
+ #report-search input{
+color: #000;
+border: 1px solid #000
+}
+
+
+ #report-search input{
+color: #000;
+
+border: 1px solid #000
+}
+
+.honeypot {
+  display: none;
+  width: 1;
+  height: 1;
+}
+/**** REPORT DETAIL PAGE ****/
+
+
+.report-intro-text{
+display:block;
+PADDING-BOTTOM: 1px;
+
+}
+.report-intro-text H2{
+font-size:20px;
+color:#C42021;
+
+}
+.report-intro-text H3{
+font-size:18px;
+line-height:px;
+}
+.report-intro-text b{
+font-size:14px;
+line-height:8px;
+}
+
+#report_text{
+display:block;
+PADDING-BOTTOM: 18px;
+}
+
+#report_text p{
+font-size:12px;
+}
+.report-by{
+font-size:13px;
+font-weight:bold;
+text-align:right
+}
+
+
+
+#report_images{
+display:block;
+PADDING-BOTTOM: 10px;
+PADDING-TOP: 10px;
+}
+
+.report_image{
+PADDING-TOP: 10px;
+PADDING-BOTTOM: 40px;
+text-align:center;
+}
+
+#report_images img {
+background-color:red;
+border:2px solid blue;
+}
+
+
+#report_press{
+	display: none;
+}
+
+#report_comments{
+	display: none;
+}
+
+div.report_add_attachment{
+background-color:#f0f0f0;
+margin:10px;
+padding:10px;
+}
+
+/**** Event MAP List PAGE ****/
+
+#description{
+padding-bottom: 15px; 
+}
+
+#description b{
+line-height: 19px; 
+}
+
+#location{
+padding-bottom: 15px; 
+}
+
+#location b{
+line-height: 19px; 
+}
+
+#nav-event{
+display:block;
+text-align: right;
+padding-bottom: 15px; 
+}
+
+#event-map-container{
+	
+	width: 500px;
+	padding-right: 10px; 
+padding-bottom: 15px; 
+}
+
+#event-list-container{
+       margin-left: 10px;
+}
+
+.event-list-intro-title{
+
+font-size:17px;
+font-weight: bold;
+PADDING-BOTTOM: 10px;
+
+}
+
+#event-list-intro{
+	PADDING-BOTTOM: 10px;
+}
+
+
+.event-list-element{
+	PADDING-BOTTOM: 12px;
+}
+	
+.event-list-city{
+font-size:13px;
+font-weight: bold;
+}
+
+	
+.form_subtitle{
+font-size:15px;
+font-weight:bold;
+background-color: #CCC;
+padding:3px;
+}
+
+	
+.form_subtitle{
+  font-size:15px;
+  font-weight:bold;
+  background-color: #CCC;
+  padding:3px;
+}
+
+.report-embed{
+  text-align:center;
+}
+
+/* leaders = politicians */
+
+.politician-name {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 19px;
+  color: #45637e;
+  display: block;
+  padding: 0px 0px 5px 0px;
+}
+
+.politician {
+padding: 10px 10px 10px 10px;
+background: #E4EBF2;
+margin-bottom: 15px;
+}
+.politician img {
+border: 3px solid #FFF;
+}
+
+.invites-list {
+background: #E4EBF2;
+padding: 15px;
+}
+.header-row {
+background: #8cb5dd;
+color: #FFFFFF;
+text-transform: uppercase;
+font-size: 9px;
+font-weight: bold;
+}
+.invites-list-img img{
+border:2px solid white;
+
+}
+
+.invites-list-name {
+width: 150px;
+}
+
+.invites-list-checks {
+text-align: center;
+}
+
+.invites-list-invite {
+width: 65px;
+text-align: center;
+}
+.invites-list-invite a {
+  color: #1f5c83;
+
+}
+
+.invites-list-count {
+background: url(http://events.stepitup2007.org/images/confirmed_blank.gif) top left no-repeat;
+width: 40px;
+height: 40px;
+color: #FFFFFF;
+font-weight: bold;
+font-size: 17px;
+padding-top: 15px;
+text-align: center;
+}
+
+.button-maker a {
+  color: #FFF;
+  display: block;
+ padding-right: 10px;
+ padding-left: 10px;
+  padding-top: 4px;
+}
+
+.button-maker {
+  display: block;
+  height: 26px;
+  color: #FFFFFF;
+  font-weight: bold;
+  background: url(http://stepitup2007.org/img/original/stepitup2_buttommkr_02.gif) top left repeat;
+  margin: 3px;
+}
+span.first .button-maker {
+  background-image: url(http://events.stepitup2007.org/themes/stepitup2/images/stepitup2_button_red_center.gif);
+}
+
+.button-maker-left {
+  display: block;
+  background: url(http://stepitup2007.org/img/original/stepitup2_buttommkr_01.gif) top left no-repeat;
+  height: 26px;
+}
+span.first .button-maker-left {
+  background-image: url(http://events.stepitup2007.org/themes/stepitup2/images/stepitup2_button_red_left.gif);
+}
+
+.button-maker-right {
+  display: block;
+background: url(http://stepitup2007.org/img/original/stepitup2_buttommkr_04.gif) top right no-repeat;
+  height: 26px;
+}
+span.first .button-maker-right {
+  background-image: url(http://events.stepitup2007.org/themes/stepitup2/images/stepitup2_button_red_right.gif);
+}
+
+.report-intro-text .button-maker {
+  width: 200px;
+}
+
+.map_key {
+display: block;
+float: left;
+font-size: 11px;
+width: 185px;
+line-height: 11px;
+padding: 10px 0px 20px 10px;
+}
+
+.map_1 {
+display: block;
+color: #000000;
+padding: 5px;
+background: #afd365;
+}
+
+.map_2 {
+display: block;
+color: #000000;
+padding: 5px;
+background-color: #789b30;
+}
+
+.map_3 {
+display: block;
+color: #FFFFFF;
+padding: 5px;
+background-color: #5b791e;
+}
+
+.map_4 {
+display: block;
+color: #FFFFFF;
+padding: 5px;
+background-color: #335115;
+}
+
+#map-header {
+  height: 100px;
+}
+
+#map-header h4 {
+display: block;
+float: left;
+padding: 0px;
+width: 300px;
+}
+
+#map-header img {
+width: 60px;
+height: auto;
+padding-right: 15px;
+display: block;
+float: left;
+}
+
+.map-header-sen {
+  width: 205px;
+  display:block;
+  float:left;
+  font-weight: bold;
+  font-size: 12px;
+  color: #555555;
+  padding-top: 15px;
+}
+
+.map-header-sen-names {
+  display:block;
+  float:left;
+}
+
+
+
+/* MERGED FROM SIU CORE CSS */
+
+
+#profile_event_edit, #profile_event_attend, #profile_event_invite, #profile_event_print,  #profile_event_report, #profile_event_blog {
+	background-color:#E8E8E8;
+	padding:15px;
+	border:1px solid black;	
+}
+
+.profile_dashboard_item {
+	font-size:16px;
+}
+
+.profile_list_table{
+	width:90%;
+	margin-left:15px;
+	padding:0px 0px 0px 0px;
+	padding-bottom:30px;
+}
+.profile_header_row{
+	background-color:#999999;
+	color:#ffffff;
+}
+
+.profile_item_row{
+	padding:4px;
+border:1px solid black;
+
+}
+
+
+.profile_subtitle {
+	font-size:18px;
+	background-color:#4e96d3;
+	color:#FFFFFF;
+	padding:5px;
+}
+.profile_title {
+	font-size:22px;
+	padding:0 20px 20px 20px;
+}
+
+.profile_submit {
+  background: #fff;
+  border:1px solid black; 
+  font-size:11px;
+  float:right;
+  margin-top:3px;
+  margin-right:5px;
+}
+
+
+
+input {
+border:1px solid #999999;
+font-size: 11px;
+color:#777777;
+margin:2px 3px 2px 5px;
+padding:1px;
+}
+
+select {
+border:1px solid #999999;
+font-size: 11px;
+color:#777777;
+margin:2px 3px 2px 5px;
+padding:1px;
+
+}
+
+#signupForm{
+border:1px solid black; 
+background-color:#cccccc; color:#000000;
+padding: 10px 5px 5px 15px;
+margin-left:10px;
+margin-bottom:5px;
+
+}
+
+.validation-advice {
+	margin: 5px 0;
+	padding: 5px;
+	background-color: #FF3300;
+	color : #FFF;
+	font-weight: bold;
+}
+
+
+/*  END SIU CORE MERGE  */
+

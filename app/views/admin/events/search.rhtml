@@ -1,0 +1,24 @@
+<br/>
+<div class="list_table">
+<table class="list_table">
+<tbody class="system">
+  <tr class="list_column_header">
+  	<td>Date</td>
+  	<td>Event Name</td>
+  	<td>Location</td>
+  	<td>Lat/Lon</td>
+  	<td>Host</th>
+  	<td>Tags</td>
+  	<td>Category</td>
+  	<td>RSVPs</td>
+  	<td>Reports</td>
+  	<td></td>
+  	<td></td>
+  	<td></td>
+  </tr>
+<%= render :partial => 'event', :collection => @events %>
+</tbody>
+</table>
+</div>
+<br/>
+<%= link_to 'Back to events', url_for(:action => 'index') %>

@@ -1,0 +1,43 @@
+<div id="national-container">
+  <div id="national-intro">
+    <div class="national-intro-text">
+      <%#=  @calendar.name %>
+    </div>
+    <div class="national-intro-count">
+      <!--      There are <%#= pluralize @calendar.events.length, @calendar.name %> in <%#= @calendar.events.unique_states %> states. -->
+    </div>
+    <div class="national-intro-directions">
+      <br />
+      <% if @calendar.map_intro_text -%>
+        <%= @calendar.map_intro_text %>
+      <% else -%>
+        Click on a state or enter your zip code to find <%= @calendar.name.pluralize %> near you...
+      <% end -%>
+      <br /><br />
+    </div>
+  </div>
+  <div id="national-map-container">
+    <div id='national-map-search'>
+      <table cellpadding=8><tr><td valign=top><b>Search by: </b></td><td>
+         <% form_tag :permalink => @calendar.permalink, :controller => 'events', :action => 'search' do -%>
+         
+      &nbsp;Zip Code:  <%= text_field_tag 'zip', nil, :size=>10 %>
+      <%= submit_tag "GO" %><br> 
+      <b>OR</b> State:
+      <%= select_tag 'state', us_state_options_for_select( '', {:show => :abbreviations, :include_blank => true}), :onchange => "window.location.href='/#{@calendar.permalink}/events/search/state/' + this.value" %>
+      <% if @calendar.categories.any? -%><br />
+        <b>OR</b> Event type:
+             <%= select_tag 'categories', 
+                    options_for_select(@calendar.categories.collect{|c| [c.name, c.id]}.unshift(['Select one...', nil],['All Events', 'all']), nil), 
+                    :onchange => "window.location.href='/#{@calendar.permalink}/events/category/' + this.value" %>
+        <% end -%>
+      <% end -%>
+						</td></tr>
+</table>
+    </div>
+    <%= render :partial => "/calendars/flashmap" %>
+  </div>
+  <div id="national-footer">
+   
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div id="national-container">
+  <div id="national-intro">
+    <div class="national-intro-text">
+      <%#=  @calendar.name %>
+    </div>
+    <div class="national-intro-count">
+      There are <%= pluralize @calendar.events.length, @calendar.name %> in <%= @calendar.events.unique_states %> states.
+    </div>
+    <div class="national-intro-directions">
+      <br> Click on a state or enter your zip code to find <%= @calendar.name.pluralize %> near you...
+    </div>
+  </div>
+  <div id="national-map-container">
+    <div id='national-map-search'>
+      <table cellpadding=8><tr><td valign=top><b>Search by: </b></td><td>
+      <% form_tag :action => 'search' do -%>
+         
+      &nbsp;Zip Code:  <%= text_field_tag 'zip', nil, :size=>10 %>
+      <%= submit_tag "GO" %><br> 
+      <b>OR</b> State:
+        <%= select_tag 'state', us_state_options_for_select( '', {:show => :abbreviations, :include_blank => true}), :onchange => "window.location.href='/events/search/state/' + this.value" %>
+        <% end -%></td></tr></table>
+    </div>
+    <%= render :partial => "flashmap" %>
+  </div>
+  <div id="national-footer">
+   
+  </div>
+</div>

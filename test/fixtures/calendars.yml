@@ -1,0 +1,101 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+siu_april:
+  id: 1
+  name: April
+  site_id: 2
+  permalink: april
+  current: false
+siu_nov:
+  id: 2
+  name: November 3rd - Climate Change Day of Action
+  site_id: 2
+  permalink: november
+  current: true 
+nwnw_oct:
+  id: 3
+  name: October 
+  site_id: 3
+  permalink: oct
+  current: true
+etc_screenings:
+  id: 4
+  name: Screenings
+  site_id: 4
+  permalink: screenings
+  current: true
+ccd_sears:
+  id: 5
+  name: Sears Day of Action
+  site_id: 5
+  parent_id: 12
+  permalink: dec4
+  current: false
+ccd_rolling:
+  id: 6 
+  name: Rolling Actions
+  site_id: 5
+  parent_id: 12
+  permalink: rolling
+  current: true
+mr_cahouseparties:
+  id: 7
+  name: CA House Parties
+  site_id: 2
+  permalink: cahouseparties
+  theme: cahouseparties
+  current: true
+mr_fairpay:
+  id: 8
+  name: Fair-Pay Compensation
+  site_id: 2
+  permalink: fair-pay
+  current: true
+wa_swan:
+  id: 9
+  name: SWAN
+  site_id: 7
+  permalink: swan
+  current: true
+ufpj_5yearstoomany:
+  id: 10
+  name: 5 Years Too Many
+  site_id: 8
+  permalink: 5yearstoomany
+  current: true
+ufpj_ivaw:
+  id: 11
+  name: IVAW
+  site_id: 8
+  permalink: ivaw
+  current: true
+ccd_all:
+  id: 12
+  name: The All Calendar
+  site_id: 5
+  permalink: all
+  current: false
+ea_fossilfools:
+  id: 13
+  name: Fossil Fools
+  site_id: 9
+  permalink: fossilfools
+  current: true
+wf_banished:
+  id: 14
+  name: Banished
+  site_id: 10
+  permalink: banished
+  current: true
+ft_march10:
+  id: 15
+  name: Free Tibet March 10
+  site_id: 11
+  permalink: march10
+  current: true
+ccd_febenews:
+  id: 16
+  name: February eNews
+  site_id: 5
+  parent_id: 12
+  permalink: febenews
+  current: false

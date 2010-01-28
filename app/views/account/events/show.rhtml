@@ -1,0 +1,197 @@
+<%= render "account/menu" %>
+<% content_for :header do %>
+<%= javascript_include_tag 'effects' %>
+<% end %>
+<div id='profile_event' >
+	<div class='profile_title'>Manage Your Event</div>
+	<p><em>Changes to your event information might take a few moments to update.
+	Please check back soon to see if your edits have registered. Thanks.</em></p>
+	<em>Click this link to see what your event looks like online:</em><br>
+	<b><%= link_to @event.name, :permalink => @event.calendar.permalink, :controller => '/events', :action => 'show', :id => @event %></b><br>
+	<b><%= @event.city %>, <%= @event.state %> </b><br>
+	<p class="profile_dashboard_item"><img src='/themes/stepitup/images/profile_edit.gif'><%= link_to_function 'Edit Your Event', visual_effect(:toggle_blind,'profile_event_edit') %></p>
+  <div id='profile_event_edit'<% if @event.errors.empty? %> style="display:none;"<% end %>>
+		<p class='profile_subtitle'>Edit Your Event Information</p>	
+    <% form_for :event, @event, :url => {:controller => 'account/events', :action => 'update', :id => @event} do |f| %>
+		<%= render :partial => "form", :locals => {:f => f} %>
+		<%= submit_tag %>
+		<% end %>
+		<br />
+  <p class="profile_subtitle">Edit Attachments</p>
+  <div id="profile_event_attachments">
+      <table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td>Image</td>
+					<td>Caption</td>
+					<td></td>
+				</tr>
+				<%= render :partial => 'image', :collection => @event.images %>
+			</table>			
+
+      <table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td>Document</td>
+					<td></td>
+				</tr>
+				<%= render :partial => 'document', :collection => @event.documents %>
+			</table>			
+
+    <p>Upload a new attachment (image or document only)</p>
+    <% form_for :attachment, nil, :url => {:action => 'upload', :id => @event.id}, :html => {:multipart => true} do |f| -%>
+    <%= f.file_field 'uploaded_data' %>
+    <%= submit_tag 'upload' %>
+    <% end -%>
+  </div>
+	</div>	
+	
+	<p class="profile_dashboard_item"><img src='/themes/stepitup/images/profile_rsvp.gif'><%= link_to_function 'View and Contact Event Attendees', visual_effect(:toggle_blind,'profile_event_attend') %></p>
+	
+	<div id='profile_event_attend' style="display:none;">
+		<div id='profile_event_attend_contact'>
+			<p class='profile_subtitle'>Send Email to all Attendees</p>
+			Messages will be sent with your email address in the from field<br /><br />
+      <% form_for :message, nil, :url => {:controller => 'account/events', :action => 'message', :id => @event} do |f| %>
+			Subject:<br><%= f.text_field 'subject' %><br/>
+			Message Text:<br><%= f.text_area 'body', :rows => 10 %><br/>
+			<%= submit_tag 'Send' %>
+			<% end %>
+		</div>
+		<br />
+		<div id='profile_event_attend_list'>
+			<p class='profile_subtitle'>Event Attendees</p> 
+			<table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Email</td>
+					<td>Phone</td>
+				</tr>
+        <% @attendees = @event.attendees || @event.to_democracy_in_action_event.attendees.collect {|a| User.new :email => a.Email, :first_name => a.First_Name, :last_name => a.Last_Name, :phone => a.Phone} %>
+				<%= render :partial => 'attendee', :collection => @attendees %>
+			</table>
+      <br><p><%= link_to 'Download Attendees in a Spreadsheet', :action => 'attendees', :id => @event, :format => 'csv' %></p>
+		</div>
+	</div>
+	
+	<p class="profile_dashboard_item"><img src='/themes/stepitup/images/profile_invite.gif'><%= link_to_function 'Invite People to Your Event', visual_effect(:toggle_blind, 'profile_event_invite') %></p>
+	<div id='profile_event_invite' style="display:none;">	
+		<p class='profile_subtitle'>Invite People to Your Event</p>
+    <% form_for :invite, :url => {:controller => 'account/events', :action => 'invite', :id => @event} do |f| %>
+		This e-mail will have the event name, date, location, and RSVP link appended to the bottom of the message.  The message box below is for a personal note from you to the recipients.<br /><br />
+    	Recipients:<br />
+		<%= f.text_field 'recipients' %><br />
+		<em>Enter email addresses separated by commas (example@hotmail.com, example@gmail.com)<br />
+		Our organization will not collect email addresses of people who you invite using this form.</em><br /><br />
+		Subject:<br/><%= f.text_field 'subject' %><br/>
+		Message Text:<br/><%= f.text_area 'body', :rows => 10 %><br/>
+		<em>The date, time, and location of your event along with a link to <br/>the event will be added to the bottom of this outgoing message.</em><br />
+		<%= submit_tag 'Send' %>
+		<% end %>
+
+		<!--<p>Previously Invited Participants</p>-->	
+	</div>
+	
+	
+	<p class="profile_dashboard_item"><img src='/themes/stepitup/images/profile_blog.gif'><%= link_to_function 'Post an Announcement About Your Event', visual_effect(:toggle_blind, 'profile_event_blog') %></p>
+	<div id='profile_event_blog'<% if @blog.nil? || @blog.errors.empty? %> style="display:none;"<% end %>>
+		<div id='profile_event_blog_add'>	
+			<p class='profile_subtitle'>Add an Announcements about Your Event</p>
+			Announcements will show up on the bottom of your event page.<br><br>
+      <%= error_messages_for :blog %>
+      <% form_for :blog, @blog, :url => {:controller => 'account/blogs', :action => 'create'} do |f| %>
+			Title:<br>
+			<%= f.text_field 'title' %><br/>
+			Content:<br>
+			<%= f.text_area 'body', :rows => 10 %><br/>
+      <%= f.hidden_field 'event_id' %>
+			<%= submit_tag %>
+			<% end %>
+		</div><br />
+		<div id='profile_event_blog_list'>
+			<p class='profile_subtitle'>Past Announcements</p>
+			<table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td></td>
+					<td>Date</td>
+					<td>Title</td>
+				</tr>
+				<%= render :partial => 'blog', :collection => @event.blogs %>
+			</table>
+			
+		</div>
+		<div id='profile_event_blog_edit' style="display:none;">
+			<p class='profile_subtitle'>Edit Announcements</p>
+			Title:<br>
+			Content:<br>
+		</div>
+	</div>
+	
+	<p class="profile_dashboard_item"><img src='/themes/stepitup/images/profile_report.gif'><%= link_to_function 'Manage Event Report Backs', visual_effect(:toggle_blind, 'profile_event_report') %></p>
+	<div id='profile_event_report'<% if @report.nil? || @report.errors.empty? %> style="display:none;"<% end %>>
+
+		<div id='profile_event_report_list'>
+			<p class='profile_subtitle'>Event Reports</p>
+			<%= link_to "Add Report", :controller => '/reports', :action => 'new', :id => @event.id   %>
+			<table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td>Report</td>
+					<td>By</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<%= render :partial => 'report', :collection => @event.reports %>
+			</table>			
+		</div>
+
+
+
+		<div id='profile_event_photo_list'>
+			<p class='profile_subtitle'>Event Photos</p>
+    <!--  <%= link_to_function 'Add Photo', visual_effect(:toggle_blind, 'profile_report_photo_add') %>
+     <div id ='profile_report_photo_add' style="display:none;" >
+        Add form goes here
+        </div>
+        -->
+     
+      <table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td>Image</td>
+					<td>Caption</td>
+					<td>Tags</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<%= render :partial => 'photo', :collection => @event.reports.attachments %>
+			</table>			
+		</div>
+
+		<div id='profile_event_press_list'>
+			<p class='profile_subtitle'>Press Coverage</p>
+    <!--  <%= link_to_function 'Add Press Coverage', visual_effect(:toggle_blind, 'profile_report_press_add') %>
+     <div id ='profile_report_press_add' style="display:none;" >
+
+        <% remote_form_for :press_link, nil, :url => {:controller => 'account/press', :action => 'create'} do |f| %>
+            Title:&nbsp;<%= f.text_field 'text', :size => 25 %><br>
+                URL:&nbsp;<%= f.text_field 'url', :size => 25 %>
+                    <br> <%= submit_tag 'add press coverage'   %><img style="display:none;" src="/images/spinner.gif" alt="spinner" />
+                        <% end %>
+      
+      </div>
+      -->
+      
+      <table class='profile_list_table'>
+				<tr class = "profile_header_row">
+					<td>Coverage</td>
+          <td></td>
+				</tr>
+				<%= render :partial => 'press', :collection => @event.press_links %>
+			</table>			
+		</div>
+		
+	</div>
+
+	<%= render :partial => 'shared/nearby_events', :layout => false %><br><br>
+
+</div>

@@ -1,0 +1,103 @@
+<%= error_messages_for('rsvp', 'user', :class => 'flash', :id => 'notice', :header_message => 'There was a problem registering your RSVP') %>
+<%= render :partial => 'nav' %>
+<% if @event.past? -%>
+  <b>This Event Has Already Taken Place<br/><br/>
+
+    <% if @event.reportable? -%>
+    If you attended this event please <%= link_to 'Submit a Report', :permalink => @calendar.permalink, :controller => "reports", :action => "new", :id=>@event.id %>.<br>
+    <% end -%>
+
+	<% unless @event.reports.empty? -%>
+	   <%= link_to 'Click here', report_url(:permalink => @calendar.permalink, :event_id => @event.id)  %> to see reports for this event.<br>
+	<% end -%>
+  See all <%= link_to 'Event Reports', :permalink => @calendar.permalink, :controller => 'reports', :action => 'index' %>.<br><br>
+</b>
+<% end -%>
+
+<div class="report-intro-text">
+  <% if @event.past? -%>
+ 
+  <% end -%>
+
+  <h2><%= white_list @event.name %></h2>
+  <h3><%= white_list @event.city_state %></h3>
+  <p class="start"><b> <%= event_date_range(@event) %></b></p>
+  <% if @event.host -%>
+    <h4>Hosted by <%= link_to @event.host.full_name, :action => :host, :id => @event %></h4>
+ <% end -%>
+
+  <div id="description"> <b>Event Description:</b><br><%= simple_format(white_list(auto_link(@event.description))) %></div>
+
+<% if @event.category %>  
+  <div class="">
+	<B>Event Type:</B> <%=  @event.category.name %> 
+	<br><br>
+</div>
+<% end -%>
+
+<% if @event.max_attendees %>  
+  <div class="">
+	<B>Max Attendees:</B> <%=  @event.max_attendees %> (Currently <%=  @event.attendees.length %> Registered)
+	<br><br>
+</div>
+<% end -%>
+
+<%  unless @event.tags.empty? %>
+<div id="">
+	<b>Event Tags:</B> <%= @event.tags.collect {|t| link_to(t.name, :permalink => @calendar.permalink, :controller => 'events', :action => 'tagged', :id => t.name )}.join(', ') %>
+	<br><br>
+</div>
+<% end -%>
+  
+  <div id="location"><b>Location:</b><br><%= white_list @event.location %></div>
+<% unless @event.directions.blank? %>
+<div id="directions"><b>Directions:</b><br><%= white_list word_wrap(auto_link(@event.directions) {|text| truncate(text, 40) + " " }) %></div>
+<% end -%>
+<br />
+ 
+<% if @event.attachments.any? -%>
+<B>Attachments From Host:</B><br /><br />
+<% if @event.documents.any? -%>
+<div id="files">
+  <b>Files provided by host:<b><br/>
+      <% @event.documents.collect do |doc| -%>
+      <%= link_to doc.filename, doc.public_filename %>
+      <% end.join('<br/>') %>
+</div>
+<% end -%>
+
+<% if @event.images.any? %>
+<div id="images">
+  <% @event.images.collect do |image| -%>
+  <%= image_tag image.public_filename(:display) %><br />
+    <% if image.caption %>
+      <%= image.caption %><br />
+    <% end -%>
+    <br />
+  <% end.join('<br/>') -%>
+</div>
+<% end -%>
+<% end -%>
+
+<p align="center" style="font-size: 14px; font-weight: bold;">
+<%= link_to "Questions? Email the Host", :controller => 'events', :action => 'email_host', :id => @event %>
+</p>
+
+<p></p>
+
+<% unless @event.past? -%>
+ 
+<%= render :partial => "rsvp", :locals => { :event => @event} %>
+<% end -%>
+<% if !@event.blogs.empty? -%>
+<div id="announcements">
+	<h3>Event Announcements</h3>
+	<%= render :partial => "announcement", :collection => @event.blogs  %>
+</div>	
+<% end -%>
+<br>
+<div id="eventmap" style="width: 450px; height: 300px"></div>
+  <%= @map.to_html if @map %>
+</div>
+
+

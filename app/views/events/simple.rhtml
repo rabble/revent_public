@@ -1,0 +1,28 @@
+<h3>Join An Action</h3>
+Select your state or enter your zip code to find an event in your area:<br />
+<table>
+<tr>
+<td>
+<% form_tag :controller => 'events', :action => 'search', :only_path => false do -%>
+Zip: <%= text_field_tag :postal_code %>
+<%= submit_tag 'search', :onclick => "window.location.href='#{request.protocol}#{request.host}/#{@calendar.permalink}/events/search/zip/' + $('postal_code').value; return false;" %>
+<% end -%>
+</td>
+<td>
+<% form_tag :action => 'list', :only_path => false do -%>
+State: <%= select_tag :state, us_state_options_for_select( '', {:show => :abbreviations, :include_blank => true}), :onchange => "window.location.href='#{request.protocol}#{request.host}/#{@calendar.permalink}/events/search/state/' + this.value" %>
+<% end -%>
+<td/>
+</tr>
+</table>
+<br />
+<% form_tag({:action => 'search', :only_path => false}, {:onsubmit => "window.location.href='#{request.protocol}#{request.host}/#{@calendar.permalink}/invites/list/zip/' + $('postal_code').value; return false;"}) do -%>
+<div style="float: left; width: 120px;">
+<%#= text_field_tag :postal_code, nil, :style => "width: 100px;" %>
+</div>
+<%#= submit_tag 'show by zip', :onclick => "window.location.href='#{request.protocol}#{request.host}/#{@calendar.permalink}/invites/list/zip/' + $('postal_code').value; return false;" %>
+<% end -%>
+
+<br/>
+
+<br clear="both"/>

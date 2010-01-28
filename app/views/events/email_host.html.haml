@@ -1,0 +1,42 @@
+- if @host
+  %h3 
+    Send an email to 
+    =@host.full_name
+    %br
+    Host of 
+    = @event.name
+  - form_tag do
+    %table
+      %tr
+        %td
+          To: 
+        %td
+          = @host.full_name
+      %tr
+        %td
+          Your name:
+        %td
+          = text_field_tag 'from_name', params[:from_name], :size => 30
+      %tr
+        %td
+          Your email: 
+        %td
+          = text_field_tag 'from_email', params[:from_email], :size => 30
+      .verify{:style => "display: none;"}
+        = text_field_tag 'first_name'
+      %tr 
+        %td
+          Subject: 
+        %td
+          = text_field_tag 'subject', params[:subject], :size => 45 
+      %tr 
+        %td{:valign => 'top'}
+          Message: 
+        %td
+          = text_area_tag 'body', params[:body], :rows => 7, :cols => 50
+      %tr 
+        %td
+        %td
+          = submit_tag 'Send Email'
+-else
+  This event has no host, please contact the sponsoring organization

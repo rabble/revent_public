@@ -1,0 +1,226 @@
+xml.instruct! :xml, :version => "1.0", :encoding => "iso-8859-1"
+xml.us_states do
+  xml.state( :id => "outline_color" )    { xml.color 777777 }
+  xml.state( :id => "default_color" )    { xml.color 'E0DBC8' }
+  xml.state( :id => "background_color" ) { xml.color 'FFFFFF' }
+  xml.state( :id => "state_info_icon" )  { xml.src '/icon.swf' }
+  xml.state( :id => "default_point" )    { xml.color('75AD50'); xml.size(3) }
+  xml.state( :id => "scale_points" )     { xml.data 30 }
+
+  @events.each do |e|
+    next unless (e.latitude && e.longitude)
+    xml.state :id => "point" do
+      xml.name e.city
+      xml.loc "#{e.latitude},#{e.longitude}"
+      xml.url state_search_url(:permalink => @calendar.permalink, :state => e.state)
+      xml.hover e.name
+    end
+  end
+
+  xml << <<STATES
+    <state id="AL">
+      <name>Alabama</name>
+      <url>/#{@calendar.permalink}/events/search/state/AL</url>      
+    </state>
+    <state id="AK">
+      <name>Alaska</name>
+      <url>/#{@calendar.permalink}/events/search/state/AK</url>
+    </state>
+    <state id="AZ">
+      <name>Arizona</name>
+      <url>/#{@calendar.permalink}/events/search/state/AZ</url>
+    </state>
+    <state id="AR">
+      <name>Arkansas</name>
+      <url>/#{@calendar.permalink}/events/search/state/AR</url>
+    </state>
+    <state id="CA">
+      <name>California</name>
+      <url>/#{@calendar.permalink}/events/search/state/CA</url>
+    </state>
+    <state id="CO">
+      <name>Colorado</name>
+      <url>/#{@calendar.permalink}/events/search/state/CO</url>
+    </state>
+    <state id="CT">
+      <name>Connecticut</name>
+      <url>/#{@calendar.permalink}/events/search/state/CT</url>
+    </state>
+    <state id="DE">
+      <name>Delaware</name>
+      <url>/#{@calendar.permalink}/events/search/state/DE</url>
+    </state>
+    <state id="DC">
+      <name>District of Columbia</name>
+      <url>/#{@calendar.permalink}/events/search/state/DC</url>
+    </state>
+    <state id="FL">
+      <name>Florida</name>
+      <url>/#{@calendar.permalink}/events/search/state/FL</url>
+    </state>
+    <state id="GA">
+      <name>Georgia</name>
+      <url>/#{@calendar.permalink}/events/search/state/GA</url>
+    </state>
+    <state id="HI">
+      <name>Hawaii</name>
+      <url>/#{@calendar.permalink}/events/search/state/HI</url>
+    </state>
+    <state id="ID">
+      <name>Idaho</name>
+      <url>/#{@calendar.permalink}/events/search/state/ID</url>
+    </state>
+    <state id="IL">
+      <name>Illinois</name>
+      <url>/#{@calendar.permalink}/events/search/state/IL</url>
+    </state>
+    <state id="IN">
+      <name>Indiana</name>
+      <url>/#{@calendar.permalink}/events/search/state/IN</url>
+    </state>
+    <state id="IA">
+      <name>Iowa</name>
+      <url>/#{@calendar.permalink}/events/search/state/IA</url>
+    </state>
+    <state id="KS">
+      <name>Kansas</name>
+      <url>/#{@calendar.permalink}/events/search/state/KS</url>
+    </state>
+    <state id="KY">
+      <name>Kentucky</name>
+      <url>/#{@calendar.permalink}/events/search/state/KY</url>
+    </state>
+    <state id="LA">
+      <name>Louisiana</name>
+      <url>/#{@calendar.permalink}/events/search/state/LA</url>
+    </state>
+    <state id="ME">
+      <name>Maine</name>
+      <url>/#{@calendar.permalink}/events/search/state/ME</url>
+    </state>
+    <state id="MD">
+      <name>Maryland</name>
+      <url>/#{@calendar.permalink}/events/search/state/MD</url>
+    </state>
+    <state id="MA">
+      <name>Massachusetts</name>
+      <url>/#{@calendar.permalink}/events/search/state/MA</url>
+    </state>
+    <state id="MI">
+      <name>Michigan</name>
+      <url>/#{@calendar.permalink}/events/search/state/MI</url>
+    </state>
+    <state id="MN">
+      <name>Minnesota</name>
+      <url>/#{@calendar.permalink}/events/search/state/MN</url>
+    </state>
+    <state id="MS">
+      <name>Mississippi</name>
+      <url>/#{@calendar.permalink}/events/search/state/MS</url>
+    </state>
+    <state id="MO">
+      <name>Missouri</name>
+      <url>/#{@calendar.permalink}/events/search/state/MO</url>
+    </state>
+    <state id="MT">
+      <name>Montana</name>
+      <url>/#{@calendar.permalink}/events/search/state/MT</url>
+    </state>
+    <state id="NE">
+      <name>Nebraska</name>
+      <url>/#{@calendar.permalink}/events/search/state/NE</url>
+    </state>
+    <state id="NV">
+      <name>Nevada</name>
+      <url>/#{@calendar.permalink}/events/search/state/NV</url>
+    </state>
+    <state id="NH">
+      <name>New Hampshire</name>
+      <url>/#{@calendar.permalink}/events/search/state/NH</url>
+    </state>
+    <state id="NJ">
+      <name>New Jersey</name>
+      <url>/#{@calendar.permalink}/events/search/state/NJ</url>
+    </state>
+    <state id="NM">
+      <name>New Mexico</name>
+      <url>/#{@calendar.permalink}/events/search/state/NM</url>
+    </state>
+    <state id="NY">
+      <name>New York</name>
+      <url>/#{@calendar.permalink}/events/search/state/NY</url>
+    </state>
+    <state id="NC">
+      <name>North Carolina</name>
+      <url>/#{@calendar.permalink}/events/search/state/NC</url>
+    </state>
+    <state id="ND">
+      <name>North Dakota</name>
+      <url>/#{@calendar.permalink}/events/search/state/ND</url>
+    </state>
+    <state id="OH">
+    <url>/#{@calendar.permalink}/events/search/state/OH</url>
+      <name>Ohio</name>
+    </state>
+    <state id="OK">
+      <name>Oklahoma</name>
+      <url>/#{@calendar.permalink}/events/search/state/OK</url>
+    </state>
+    <state id="OR">
+      <name>Oregon</name>
+      <url>/#{@calendar.permalink}/events/search/state/OR</url>
+    </state>
+    <state id="PA">
+      <name>Pennsylvania</name>
+      <url>/#{@calendar.permalink}/events/search/state/PA</url>
+    </state>
+    <state id="RI">
+      <name>Rhode Island</name>
+      <url>/#{@calendar.permalink}/events/search/state/RI</url>
+    </state>
+    <state id="SC">
+      <name>South Carolina</name>
+      <url>/#{@calendar.permalink}/events/search/state/SC</url>
+    </state>
+    <state id="SD">
+      <name>South Dakota</name>
+      <url>/#{@calendar.permalink}/events/search/state/SD</url>
+    </state>
+    <state id="TN">
+      <name>Tennessee</name>
+      <url>/#{@calendar.permalink}/events/search/state/TN</url>
+    </state>
+    <state id="TX">
+      <name>Texas</name>
+      <url>/#{@calendar.permalink}/events/search/state/TX</url>
+    </state>
+    <state id="UT">
+      <name>Utah</name>
+      <url>/#{@calendar.permalink}/events/search/state/UT</url>
+    </state>
+    <state id="VT">
+      <name>Vermont</name>
+      <url>/#{@calendar.permalink}/events/search/state/VT</url>
+    </state>
+    <state id="VA">
+      <name>Virginia</name>
+      <url>/#{@calendar.permalink}/events/search/state/VA</url>
+    </state>
+    <state id="WA">
+      <name>Washington</name>
+      <url>/#{@calendar.permalink}/events/search/state/WA</url>
+    </state>
+    <state id="WV">
+      <name>West Virginia</name>
+      <url>/#{@calendar.permalink}/events/search/state/WV</url>
+    </state>
+    <state id="WI">
+      <name>Wisconsin</name>
+      <url>/#{@calendar.permalink}/events/search/state/WI</url>
+    </state>
+    <state id="WY">
+      <name>Wyoming</name>
+      <url>/#{@calendar.permalink}/events/search/state/WY</url>
+    </state>
+STATES
+end

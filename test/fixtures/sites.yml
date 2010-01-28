@@ -1,0 +1,43 @@
+main:
+  id: 1
+  host: www.daysofaction.org
+stepitup:
+  id: 2
+  host: events.stepitup2007.org
+  theme: stepitup2
+nwnw:
+  id: 3
+  host: events.nowarnowarming.org
+  theme: nowarnowarming
+etc:
+  id: 4
+  host: events.everythingscool.org
+  theme: everythingscool
+ccd:
+  id: 5
+  host: events.catalogcutdown.org
+  theme: catalogcutdown
+momsrising:
+  id: 6
+  host: events.momsrising.org
+  theme: momsrising
+womenarts:
+  id: 7
+  host: events.womenarts.org
+  theme: womenarts
+ufpj:
+  id: 8
+  host: events.unitedforpeace.org
+  theme: unitedforpeace
+energyaction:
+  id: 9
+  host: events.energyactioncoalition.org
+  theme: energyaction
+workingfilms:
+  id: 10
+  host: events.workingfilms.org
+  theme: workingfilms
+freetibet:
+  id: 11
+  host: events.ft08.org
+  theme: freetibet

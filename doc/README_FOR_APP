@@ -1,0 +1,39 @@
+Developer How To:
+
+Install SVN client:
+	gem install svn
+
+Navigate to directory where you want to put daysofaction source code:
+	svn checkout https://svn.radicaldesigns.org/daysofaction/trunk daysofaction
+	cd daysofaction
+
+Create log files since not in svn:
+	create ./log directory 
+	chmod +rw ./log
+	touch development.log
+	touch test.log
+
+Create config files:
+	cd config
+	cp database.example database.yml (add MySQL password if necessary)
+	cp cartographer-config.example cartographer-config.yml
+	cd ..
+
+Create MySQL databases; if MySQL password protected, include "-u root -p":
+	mysqladmin [-u root -p] create daysofaction_development
+	mysqladmin [-u root -p] create daysofaction_test
+	mysqladmin [-u root -p] create daysofaction_production
+
+Install necessary libraries:
+	sudo gem install google-geocode
+	sudo gem install rflickr
+	Download memcached binary
+		./configure
+		make install
+	sudo port install memcache-client
+	
+Generate tables in database:
+	rake db:migrate
+	
+Install mongrel web server:
+	sudo gem install mongrel

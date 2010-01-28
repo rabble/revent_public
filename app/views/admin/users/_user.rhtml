@@ -1,0 +1,7 @@
+<tr bordercolor="#333333" bgcolor="#E5E5E5" onMouseover="this.bgColor='#CCFFCC';" onMouseout="this.bgColor='#E5E5E5';">
+  <td><%= [user.first_name, user.last_name].join %></td>
+  <td><%= user.email %></td>
+  <td><%= [[user.street, user.street_2].compact.join("<br/>"), [[user.city, user.state].compact.join(', '), user.postal_code].join(' ')].join("<br/>") %></td>
+  <td><%= user.events.collect {|e| link_to "#{e.start.strftime('%m/%e')} - #{e.name}", :controller => 'account/events', :action => 'show', :id => e.id}.join('<br> ') %></td>
+   <td><%= link_to 'Reset password', :action => :reset_password, :id => user %></td>
+</tr>

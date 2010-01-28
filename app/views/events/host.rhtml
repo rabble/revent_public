@@ -1,0 +1,29 @@
+<%= render :partial => 'nav' %>
+<h2><%= @event.name %><br /> is hosted by:</h2>
+<h4>
+	<%= @host.full_name %>
+	<% if @host.city and @host.state -%>
+	  of <%= @host.city %>, <%= @host.state %><br />
+	<% end -%>
+</h4>
+<% if @host.show_phone_on_host_profile and @host.phone -%>
+<br/>Contact: <%= @host.phone %><br/>
+<% end -%>
+<p style="font-size: 14px; font-weight: bold;">
+
+
+<p align="center" style="font-size: 14px; font-weight: bold;">
+<%= link_to "Questions? Email the Host", :controller => 'events', :action => 'email_host', :id => @event %>
+</p>
+
+
+</p>
+<br /><br />
+<% if @host.profile_image -%>
+  <%= image_tag(@host.profile_image.public_filename(:display)) %><br />
+<% end -%>
+<div align="right">
+<%= link_to 'Back to Event Details', :controller => 'events', :permalink => @calendar.permalink, :action => :show, :id => @event %>
+</div>
+
+

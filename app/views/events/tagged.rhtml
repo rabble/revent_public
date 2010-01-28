@@ -1,0 +1,13 @@
+<div id="event-container">
+	<div id="event-list-intro">
+		<div class="event-list-intro-title">
+      <%= @calendar.name.pluralize %> tagged <%= white_list(@tag.name) %>
+		</div>
+		<div class="event-list-intro-results">
+      Found <%= pluralize @events.length, @calendar.name %> tagged <%= white_list(@tag.name) %>
+		</div>
+  </div>
+  <div id="event-list-container">
+    <%= render :partial => "report", :collection => @events %>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+Generating latest zip, it may take a while, you'll find it here when it's done:
+<br/>
+<br/>
+<%= link_to File.basename(@latest), "/#{File.basename(@latest)}" %>
+
+<br/>
+
+Previous downloads:
+<% Dir[File.join(RAILS_ROOT, 'public', 'featured_images_*zip')].map {|path| [File.size(path), File.basename(path)]}.each do |file| %>
+<%= link_to "#{file[1]} (#{file[0] / 1024 / 1024} MB)", "/#{file[1]}" %><br/>
+<% end %>

@@ -1,0 +1,11 @@
+  <div id="national-footer">
+    <br>
+    <hr>
+    <p>
+     <%= link_to "Search Reports",  :permalink => @calendar.permalink, :controller => "reports"   %> <br>
+    View <%= link_to "All Reports",  :permalink => @calendar.permalink, :controller => "reports", :action => "list"  %><br>
+    View  <%= link_to "All Press Reports",  :permalink => @calendar.permalink, :controller => "reports", :action => "press" %> <br>
+     View <%= link_to "All Videos",  :permalink => @calendar.permalink, :controller => "reports", :action => "video"  %><br>
+
+     </p>
+ </div>

@@ -1,0 +1,8 @@
+<div class="banner">New calendar</div>
+
+<% form_tag url_for(:action => 'create') do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create" %>
+<% end %>
+
+<%= link_to 'Back', :action => 'index' %>

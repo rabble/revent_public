@@ -1,0 +1,34 @@
+<%= error_messages_for 'calendar' %>
+
+<!--[form:calendar]-->
+<p><label for="calendar_name">Name</label><br/>
+<%= text_field 'calendar', 'name'  %></p>
+<p><label for="calendar_permalink">Permalink</label><br/>
+<%= text_field 'calendar', 'permalink'  %></p>
+
+<p><label for="calendar_short_description">Short Description</label><br/>
+<%= text_area 'calendar', 'short_description'  %></p>
+
+
+<p><label for="calendar_signup_redirect">Signup Redirect</label><br/>
+<%= text_field 'calendar', 'signup_redirect'  %></p>
+
+<p><label for="calendar_current">Current Calendar</label><br/>
+<%= check_box 'calendar', 'current'  %></p>
+
+
+<p><label for="calendar_event_start">Event Start</label><br/>
+<%= datetime_select 'calendar', 'event_start'  %></p>
+
+<p><label for="calendar_event_end">Event End</label><br/>
+<%= datetime_select 'calendar', 'event_end'  %></p>
+
+<p><label for="calendar_letter_script">Letter Script</label><br/>
+<%= text_area 'calendar', 'letter_script'  %></p>
+
+
+<p><label for="calendar_call_script">Call Script</label><br/>
+<%= text_area 'calendar', 'call_script'  %></p>
+
+
+<!--[eoform:calendar]-->

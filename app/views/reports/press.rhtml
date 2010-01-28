@@ -1,0 +1,28 @@
+<div class="intro-title">
+	Press Coverage of the <%= @calendar.name %>
+</div>
+
+<div class="intro-text">
+Did the press cover a <%= @calendar.name.downcase %> that you attended?<br>
+Lets us know by posting a <%= link_to 'report of your event', :permalink => @calendar.permalink,  :controller => "reports", :action => "new" %>.
+</div>
+		
+	
+<% @press_links.group_by {|link| 
+  state_name = DemocracyInAction::Helpers.state_options_for_select.detect { |state| 
+    state[1] == link.report.event.state
+  }
+  state_name ? state_name[0] : link.report.event.state}.sort.each do |state, press_links| %>
+	<h3><%= state %></h3>
+  <ul>
+  <% press_links.each do |press_link| %>
+  <li><b><%= link_to press_link.report.event.city, report_url(:permalink => @calendar.permalink, :event_id => press_link.report.event_id)  %></b>: 
+  <%= link_to press_link.text, press_link.url %>
+</li>
+
+<% end %>
+</ul>
+
+<% end %>
+
+ <%= render :partial =>'reports/report_nav' %>	

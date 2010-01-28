@@ -1,0 +1,12 @@
+nov_cal:
+  id: 1
+  synced_id: 2
+  synced_type: Calendar
+  key: 308
+  table: distributed_event
+first_event:
+  id: 2
+  synced_id: 1
+  synced_type: Event
+  key: 1111
+  table: event

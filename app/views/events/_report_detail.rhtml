@@ -1,0 +1,52 @@
+
+	<div class="report_text">
+
+			
+			<%= simple_format(report_detail.text) %>
+			 <% if report_detail.reporter_name %>
+			<div class="report-by">By:<%= report_detail.reporter_name %></div>
+			<% end %>
+	</div>
+
+  <% if report_detail.attachments.any? {|a| a.audio?} %>
+	<div id="report_audios">
+    <% report_detail.attachments.find_all {|a| a.audio?}.each do |audio| %>
+		<div class="report_audio">
+			<a href=""><img src="<%= @audio.filename %>" alt="Click Here to Listen to Audio Report"></a>
+			<div style="media-caption">
+				<%= @audio.caption %>
+			</div>
+		</div>
+    <% end %>
+	<div>
+  <% end %>
+
+  <% if report_detail.attachments.any? {|a| a.video?} %>
+	<div id="report_videos">
+    <% report_detail.attachments.find_all {|a| a.video?}.each do |video| %>
+		<div class="report_video">
+			<a href=""><img src="<%= video.filename %>" alt="Click Here to Watch Video of Event"></a>
+			<div style="media-caption">
+				<%= video.caption %>
+			</div>
+		</div>	
+    <% end %>
+	<div>
+  <% end %>
+	
+  <% if report_detail.attachments.any? {|a| a.image?} %>
+	<div id="report_images">
+		For full size pictures click on any picture below.<br>
+    <% report_detail.attachments.find_all {|a| a.image?}.each do |image| %>
+		<div class="report_image">
+      <%= link_to(image_tag(image.public_filename(:display)), {:controller => :reports, :action => :lightbox, :id => image.id}, :class => 'lbOn') %>
+			<div style="media-caption">
+				<%= image.caption %>
+			</div>
+		</div>
+    <% end %>
+	</div>
+  <% end %>
+
+<hr><br>
+</div>

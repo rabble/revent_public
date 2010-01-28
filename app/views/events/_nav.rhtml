@@ -1,0 +1,5 @@
+<div id="nav-event">
+<%= link_to 'Find An Event', :permalink =>  @calendar.permalink, :controller => 'calendars', :action => 'show' %>
+  	|  <%= link_to 'Host An Event',:permalink =>  @calendar.permalink, :controller => 'events', :action => 'new' %>  
+    |  <%= link_to 'Manage Your Event', :controller => 'account/events' %>
+</div>

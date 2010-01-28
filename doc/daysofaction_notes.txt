@@ -1,0 +1,865 @@
+TODO list:
+---
+- admin user search broken
+- receiving banished email trigger for 'after innocence' screening
+- allow for setting calendar end time to never
+- need to expire event show/search pages each night so that add a report link shows up and upcoming events is correct (cronjob)
+- use other flashmaps (canada, world, etc.); parameter-ize setting this up from admin
+- rsvp sweeper needs to delete event show page (stale attendee count)
+- blog sweeper needs to delete event show page (stale host attachment)
+momsrising:
+- report-back reminder for host (using cron)
+- auto-emails host reminder before/after event
+- auto reminders for attendees (using cron)
+- add validation errors to 'manage events'
+--- lower priority ---
+- track host contacting attendees
+
+revent new-features/clean-up:
+---
+- admin: add Canada/USA as an option to calendar
+- enable sass in themes directory (started this work vendor/plugins/multisite/tasks/themes.rake"
+- dual authentication system (using ldap or openid)
+- do localization
+- allow attendees to specify number of guests
+- move calendars/show to events/index; consolidate calendars/events helpers
+- tie email triggers to hostforms (in addition to calendars & sites), since custom signup pages will need custom email triggers
+- cap deploy updates: mkdir public/cache, chmod 777 public/cache, chmod 777 tmp/attachment_fu, clear memcache
+- ability to add new admin user accounts from admin interface
+- have featured_images go to site folders under featured_images folder
+- find clean solution for 'all calendars'
+- admin side: calendar radio-buttons misleading because users are per site (not calendar)
+- admin interface redesign: considering having just users and calendars tab, and have calendars tab drill down into events
+- MomsRising: CA House Parties - send excel spreadsheet of all new sign ups within last 24 hours.
+- use same color for all required fields (state/date/time) 
+- fix admin, active_scaffold validation sucks!
+- signup form validation errors redirect to new page for partners
+- change 'location' to 'address' since its mappable
+- get caching working (turn off cron job that deletes page caches)
+- active_scaffold: errors not displayed when validation fails 
+  update: works with prototype.js v1.4, not v1.5
+  update: prototype.js v1.4 breaks link_to_function used on /profile/events (and elsewhere)
+- expire event show page after event past since page changes; use cronjob
+- eventually remove fallback lat/lng (maybe after holiday break)
+momsrising:
+- a tale of 2 flickr accounts:
+  * momsrising  22713890@N02 (moms.rising@yahoo.com) - revent photos going to this one
+		login using:  moms.rising/manifesto
+  * moms.rising 22739730@N06 Pro Account - (under address kristin@momsrising.org)
+
+Questions for ForestEthics:
+- what flickr photoset, if any, should each calendar (dec4/rolling) upload to?
+	catalogcutdown flickr account: lgn/pw - fephotoupload/bigtrees
+   catalogs: 72157603115827924, Sears: 72157603120227865 or create new photoset for each calendar?
+	http://flickr.com/photos/70978471@N00/sets/72157603120227865/
+- Molly should create a new hostform for rolling calendar from events.catalogcutdown.org/admin 
+- "Take Action" links to old events system.  Remap to revent?
+- "For Activist" doesn't link to revent.  Remap to revent?
+
+
+- each time an attachment is uploaded, attachment_fu creates 2 additional 
+  copies that are linked through parent_id (self-referential)
+
+dia:
+login/pw:  patrice@radicaldesigns.org/password
+
+add mongrels for revent:
+- edit config/mongrel_cluster.yml (change servers)
+- edit 
+
+add memory for revent:
+- goto  manage.slicehost.com
+- login as david@radicaldesigns.org (pw?)
+- go to resize, select new size/rate
+- refresh to size it prep/reboot
+- check that monit restarts mysql/apache/mongrel_rails report/user/starling processors
+- restart memcached
+./memcached -d -m 64 -p 11211 -u nobody
+
+using cron:
+  crontab -e [-u seth]   # edit cron table
+  crontab -l [-u seth]   # list cron table 
+
+to start the report handler, start the following processes:
+ruby lib/starling_control.rb start
+ruby lib/report_processor_runner.rb start
+ruby lib/user_processor_runner.rb start
+
+mysql -u root -p daysofaction_production
+mysql password: Dedpaift
+
+svn quick tips:
+svn diff -r HEAD [dir/file name] - diff with repository head
+svn up [dir/file name] - update only dir/file name
+
+gem uninstall rails -v 2.0.2
+Time on slicehost is 8 hours ahead of PST.
+find . -name \*.rb | xargs grep pattern
+
+q's for dt:
+homepage for catalogcutdown says "take part in dec4th day of action" event is past now
+should show reports page
+
+possible feature, discussion with dt and ted:
+- allow admins to tag reports 
+- output of list page 
+- ask seth about routes tags
+
+notes from 1/4/08 mtg with momsrising:
+---
+calendar for fair-pay act (launch on 8th, tuesday)
+- need to give outside organizations tracking codes
+- need to be able to purge other organizations members
+tracking code is a field in dia supporter table
+helps to find out where a user came from
+tracking vs groups
+revent dia doesn't allow us to put people into two groups
+clear out all the events
+test going on with california platform
+(fair-pay) led-butter project; solid deadline
+testing next week 1/7/08
+report page CA
+look in the logs for invite email not being sent.
+long list of emails that didn't seem to work.
+merge data in, send me an email that i can forward to others.
+host thank you - you can copy and paste.
+need better language for attachments.  narrative for why attachments could be helpful.
+automatic reminder for attendees/host  
+3 dia groups hosts, attendees, reporters
+keep track of which hosts have sent emails to attendees
+data dump out of dia
+help in planning house party
+have sample text for invite additional attendees
+
+
+::BUG::
+It appears that we're letting people create an event using an email address
+that already exists in revent without authenticating.  
+In EventsController#create, 
+u = find_or_initialize_by_site_id_and_email(Site.current.id, params[:user][:email])
+if email already exists, we let the user go ahead and create an event with this 
+account without authenticating?!?
+
+
+CatalogCutdown Dec 4th dia trigger keys:
+report_dia
+
+dia host trigger key
+<%= hidden_field_tag "user[democracy_in_action][supporter][email_trigger_KEYS]", @hostform.dia_trigger_key %>
+
+change current to featured
+when you hit root url display events from featured calendars
+if permalink is present, limit scope to that calendar
+
+problems with this approach:
+- most links have a permalink
+- what happens if you go to /signup, which calendar does event get created for?
+- break that route
+
+
+- Move email triggers to within days of action (out of dia):
+	+ add email triggers for rsvp, report
+	- Make search by_zip work for Canadian postal codes
+- set dec4.event_start/end = nil?
+- set rolling.current = true?
+- have map show both calendars events:  edit themes/catalogcutdown/views/calendars/show.rhtml
+- Test using starling for downloading images
+- Creating new calendar hostforms from active scaffold
+- flash notice getting cached.  need to expire that shit
+**
+conversation with margot 12/4/07
+- use different colors for past events
+- push report-backs onto blog; instead of pushing report-backs to AMP
+- move blogs into revent?
+- FOR ACTIVISTS move to revent (let margot confirm)
+- allow for setting permissions on admin side
+**
+done - Fix issue with flashmap
+done - On admin side; hostforms not scoped by site
+
+To generate a new theme, run:
+script/generate theme name_of_theme
+
+move email triggers from dia to revent:
+---
+email triggered in dia whenever event created, rsvped to
+dia_trigger_id in calendar/event
+email triggers
+host, rsvp, report backs
+set up interface to configure text for all these emails that are triggered by events.
+
+explanation of "def by_zip"
+- find lat/lng for search zip
+- find all zips within 50 miles of that lat/lng
+- find any event that has same zip as zips within 50 miles
+
+
+remind host to enter reports for event:
+once a day grab all recently finished events
+and send email to host only do it for certain sites
+
+searching by province
+
+enforce geocodable for canadian events
+need to find lat/long
+throw error that this address is not mappable
+enforce that postal code is real
+zoomspecs from catalogcutdown
+
+on signup page:
+  states/provinces on drop-down menu on 
+
+@calendar.events.find(:all, :conditiosn)
+
+events = @calendar.events.find(:all, :conditions => ["end < ? AND (emailed_host IS NOT NULL AND emailed_host = true",Time.now])
+events.select{|e| e.end is today}
+
+flickr account for stepitup2007.org:
+		login: stepitup07		pw: 80by50
+
+slicehost:
+   - apache2 config:
+		/etc/apache2/sites-enabled/daysofaction.slicehost.radicaldesigns.org
+	- crontab is here
+		/var/spool/cron/crontab/seth
+	- monit file is here
+		/etc/monit/monitrc (this is the main one; includes the one below)
+		/etc/monit.d/daysofaction
+
+zheng:
+/etc/apache2/sites-enabled/daysofaction.zheng.radicaldesigns.org
+DocumentRoot /var/www/rails/daysofaction/public
+has apache2 configuration
+
+ruby-on-rails source code found here on local:
+/usr/local/lib/ruby/gems/1.8/gems
+
+running starling:
+ruby lib/starling_runner.rb
+ruby lib/report_processor.rb (or lib/report_processor_runner.rb)
+
+couldn't get uploading report images working zheng
+something about s3 time difference error
+
+***
+each site has its own cache version # that gets appended to all keys 
+then when this is incremented, it clears the cache.  add a Site::clear
+method which increments the site cache version
+ - get tests working
+ - get cache sweeping working, turn off cron cache sweeping
+
+***
+flickr/S3 changes
+remove buttons in report details page; replace with 'invite/attending' span 
+automatic trigger to event host after event
+ cron job that sends email to remind host to submit report
+move email to host out of DIA and to revent
+event searching (event type)
+done - show events by tag (event search page; may already exist)
+done - widget event calendar, sorted by date
+
+move specific stuff to themes
+report form
+report details (# of events)
+not hard-code flickr API id, tag, and email group key
+
+
+need to add a line to /etc/hosts to add new site on local host
+
+zip image files and all download for stepitiup organizers.
+- write report image file names to log file with time-stamp of zip file
+- save time-stamp of zip file in log
+
+would like to test error reporting/validation on report create
+also would like to avoid duplicate records being created
+ - perhaps can address this by having button turn into spinner?
+ - seth purposed validate_uniqueness_of :url, :scope => :report_id
+but report form has problems: 
+ - ajax add more photos, videos, links weird on render after errors
+
+
+
+rsvps is a join table for events <> users or events <> politicians
+make sure politician/candidate dup records have same attending/proxy setting
+
+2 problems with listing politicians attending an event.
+perhaps we should also show whose endorsing
+done - hillary shows up even though she's not attending/ only endorsing
+done - candidates that are rep/sen show up twice!!
+done - create a self-referential key to link duplicate candidates/politician records
+
+cleanup:
+========
+rsvps: use polymorphic relationship for users, delete user_id
+app/views/events/total.rhtml - events not scoped by site/calendar
+
+
+***
+democracy_in_action_object 
+- maps DIA records to local models
+
+table = DIA table: events, campaigns, recipients, supporters
+key = DIA key
+synced_type = model object in revent; i.e. Event
+synced_id = model object 
+associated_type = 
+associated_id = campaign id
+
+***
+admin features:
+- add/edit politician info
+- confirm/unconfirm that a politician will be attending an event
+- invite a politician
+- see invites for politicians
+
+obj.build_
+politician.rsvps.build
+r = politician.rsvps.build
+r.save
+attending type, id => politician, politician.id
+
+
+-- test server for DIA: dia-config.yml --
+scp = secure copy (cp over ssh)
+scp letter_script.txt root@slicehost.radicaldesigns.org:/var/www/daysofaction/current
+scp call_script.txt root@slicehost.radicaldesigns.org:/var/www/daysofaction/current
+rake db:migrate ENV=production
+
+allow hosts to edit invitation scripts:
+- get rid of &mdash
+- how to get signature in letter
+- how to deal with emails being sent from DIA
+	need to update DemocracyInActionCampaign.SuggestedText
+	- when host updates invitation scripts
+		can't do it here b/c we don't know which politician
+	- when user invites a politician to an event
+		not sure if script has been updated by host since last time
+*****
+Remaining tasks with estimated completion dates:
+
+ 3. (10/3) - Admin/Invites: editing politician contact info, add new
+    congressional candidates; allow for confirming attendance to unspecified
+    event
+ 4. (10/3) - Admin: allow for ability to sort events by date created
+    on Manage Events interface
+ 5. (10/4) - Fix reports: http://events.stepitup2007.org/reports
+ 6. (10/4) - After zooming into a state, make legend disappear and
+    state senators/reps appear
+
+- ability to invite politicians from the map
+- clearing the cache for the invites (totals & list); currently using chronjob
+
+LAME REQUESTS:
+- break-up "Start An Action" into 3 step process; if it ain't broken, why fix it
+- admin ability to assign events to specific districts; we can do this from console
+
+- setup new site everythingscool; rake task for creating new theme events.radicaldesigns.org
+
++++ clean-up tasks +++
+- clean up caching!!!
+- change 'table' field in DemocracyInActionObject to not 'table'
+- clean up InvitesController.events, _politician.rhtml, list.rhtml
+- clean up messed up routes that use :id and :politician_id
+
+
+SETH LIST:
+===
+seth - replace join an action (eventsmap) with flashmap; need highways/road; ask flashmap if possible?
+seth - after zooming in to state, have legend disappear
+seth - add instructions for widget sharing
+seth - share page for email "tell your friends to invite politicians" - it's just not very clear
+
+MARGOT LIST:
+===
+margot - home page:
+  three buttons - change tell a friend to "invite the leaders" (unless there's a very clear button on the widget)
+  green button "the big list" clickable
+margot - clickable button more towards the top of the widget like "click here to invite the leaders" but easier and more obvious
+margot - issue with more than 50% color on flashmap
+margot - text hard to read on map legend
+margot - stepitup2, who's a leader? - bump that up a bit, add "a national day of climate action" in bold
+margot - friends and allies - how's it work?
+
+COMPLETED LIST:
+===
+done - admin manage invites; show all rep invites, 
+done - admin manage invites; edit contact info, 
+done - admin manage invites; confirm; need to handle attending but undecided on which event 
+done - Allow users to invite reps from districts with no events
+done - Change text to: "Please *follow the link above* to send Senator Hillary Clinton an..., etc."
+done - issues with hosts login not working; 2 incidents (activated_at not set; even after email verification processed)
+done - fix DC on flashmap
+done - allow users to invite reps from districts with no events(?)
+done - change text: "Please *follow the link above* to send Senator Hillary Clinton an..."
+done - have hosts be able to edit call scripts; copy new default letter script to DIA campaigns
+done - big list image changes; number of invites per politician, question mark if not attending
+done - reps invited even though no actions in their state; should only allow inviting if there is an action within 20 miles of district. if no action, they should be encouraged to start one.
+done - Some of the candidate photos in the big list at are wrong again.
+done - email page, remove the language; instead of "taking place at 12pm" "one of hundreds"
+done - issues with event locations on map (http://radicaldesigns.helpserve.com/staff/index.php?_m=tickets&_a=viewticket&ticketid=2582&departmentid=1&ticketstatusid=1)
+done - geo-coding should happen on save; currently only on create
+done - not using event lat/lng; using zip code lat/lng
+done - invites counter consistent on all pages
+done - new text at top of BIG list and map; change your to you're
+done - chron pull email invites from DIA
+done - make links for hillary followable (did it for all politicians)
+done - mike thompson invited to madison, WI
+done - make "even if a politician has already been invited" - make bold or red
+
+*****
+TODO:
+	done - list.js
+	done - fix candidates attending link on scoreboard
+	done - fix discrepancy between flashmap & eventsmap
+		- eventsmap uses zip to get lat/long
+		- flashmap does not
+	done - fix email template
+	
+	which xml file supplies events to district/flashmap?
+		flashmap_pois.rxml
+	
+	scoreboard not being updated live due to caching
+	run rake db:migrate on live server
+	crud on admin side for politician contact info
+	customizing invite text; host can modify invite text for email/call/letter
+	tracking/managing invitations
+		see who has done inviting
+		be able to add rsvps (currently done by console)
+	workflow for starting an action as 3 step process
+   interface for editing politician/candidate info
+	cache the sign-up page
+	
+	start using access paranoid; do it as a plugin (instead of deleting; just sets flag)
+	at least users/events should use this
+	use accessed version to save every state of an object
+	
+cleanup tasks:
+	make routes cleaner
+
+<% form_tag({:action => 'search', :only_path => false}, 
+{:onsubmit => "window.location.href=
+'#{request.protocol}#{request.host}/#{@calendar.permalink}/invites/list/zip/' + $('postal_code').value; return false;"}) do -%>
+
+
+xml for flashmap
+/november/invites/flashmap/areas/districts/CA.xml
+to see the xml template
+
+get rails debugger JYU
+
+
+Debugging:
+===
+<%= debug(session) %>
+<%= debug(params) %>
+<%= debug(request) %>
+
+Q'S FOR SETH:
+===
+rake blowing up on live site
+admin login for real site
+how to only see tickets for stepitup
+
+
+HOWTO update the LIVE server:
+===
+ssh root@slicehost.radicaldesigns.org
+pwd: sdf4K8be
+cd to /var/www/daysofaction/current
+svn up
+mongrel_rails cluster::restart
+
+
+GeoKit notes:
+====
+include GeoKit
+Event.find(:all).each do |e|
+	ll = MultiGeocoder::geocode(e.address)
+	e.latitude = ll.lat
+	e.longitude = ll.lng
+	e.save
+end
+
+
+Piston
+piston import url(svn/trunk) [dir]
+piston update vendor/plugin/[name]
+
+
+8/21/07
+-------
+Run changes by Seth:
+- copied themes/views/account from stepitup to stepitup2
+- issues with partial rendering
+
+- event hosts are currently stored in DIA; store in revent
+- account/events views overwritten in stepitup themes
+- understand how current_user works
+- current_user stored in session.  Is currently DIA_Supporter Object? Yes.
+- Is Account/EventsController::authorized? overwriting SysAuth::authorized? in 
+- Use email as login? Yes.
+- User created in EventsController::create
+- site.use_democracy_in_action_auth? 
+
+Notes:
+- admin interface in themes, could move all that over into new themes
+- lots of DIA dependencies that should be stored locally, need 
+bridge that syncs information with DIA
+
+Outstanding issues holding up release:
+- Search by zip not working
+- Removed line in rsvp.html that refs @event.service_foreign_key
+- Have flashmap look up real data; no longer point to s3.amazon?
+- Should we work on the zheng machine? Maybe I should create a mirror of what is on zheng?
+- Links to old site (stepitup2007.org) on :permalink/events/show/:id; should point internal
+- Search state map not working
+- Still can't login on stepitup even after creating login/password from console; Is this DIA issue?
+- Disable 'invite politician' for this release
+- Does admin interface need to work for this round?
+
+8/20/07
+- Search by zip not working
+
+8/14/07
+
+Update Staging:
+ssh patrice@zheng.radicaldesigns.org
+cd /var/www/rails/daysofaction
+sudo svn up
+sudo rake db:migrate
+sudo mongrel_rails restart
+
+development on local machine
+staging on development environment (zheng)
+deployment on to host servers (capistrano)
+
+8/13/07
+
+Spec-ing out invite elected-officials functionality:
+David knows the specs, emails have tid-bits
+List of politicians 
+assume that there is a list of politicians
+focus on i want to invite "blank"
+end goal: list of event, # of invitations
+who's turning up the heat
+looking at an event: link to "invite official"
+fill out what, click what 
+invitations table/model
+
+re-routed /events and :permalink to calendars/show
+calendars/show: shows map
+whoops! accidentally deleted _flashmap.rhtml partial
+pulled it off of trac and added it back to svn
+redirect_to: sends you to another page but continue executing
+render:  can only be called once
+call method
+
+To login from test use:
+	login_as :quentin
+To create new user account:
+u.password = 
+u.confirmation_password = 
+u.save
+
+8/6/07
+Need to add tests to check routes and scope.
+routes:
+* check that calendar permalinks work
+scope:
+* add new event to nwnw; doesn't show on stepitup
+  - create event on nwnw
+  - confirm get event from nwnw
+  - confirm can't get event from stepitup
+* add new calendar with permalink to nwnw
+* test crud functionality for events
+* nested routes (in Agile book)
+
+import file.sql file
+mysql [-u root -p] db_name < file.sql
+
+rake test
+rake test:units
+rake test:functionals
+rake test:integrations
+
+8/1/07
+From Ruby console:
+done - add records to roles (admin, host, user)
+done - add records to user
+done - added roles to user
+done - added password for user:
+  u = User.find_by_name("patrice")
+  u.roles << Roles.find(:first)
+
+map.resources calendar
+GET		/calendars				index
+POST 		/calendars				create
+GET		/calendars/new			new
+GET		/calendars/1			show
+PUT		/calendars/1			update
+GET		/calendars/1;edit		edit
+DELETE	/calendars/1			destroy
+
+Code Changes:
+done - added Admin::BaseController, Admin::CalendarController
+  Rails automatically does namespace routing (no need to edit routes.rb)
+done - moved new, create, edit, update, destroy from CalendarController to Admin::CalendarController 
+done - restricted access to /admin area
+  authorized? method called by required_login in authenticated_system.rb 
+  overrode authorized? in Admin::BaseController; copied from reports_controller
+
+admin controller:
+create base_controller.rb
+create calendar_controller.rb
+	put create/edit/destroy in here
+use acl system2 -> roles -> admin role
+/admin/x
+/admin/calendars
+/admin/settings
+
+Design:
+super-admin (radical designs staff):
+	crud: sites
+[site/account] admin
+	crud: calendars
+host:
+	crud: events
+	invite attendees
+	manage rsvp?
+user:
+	attend events; i.e. rsvp
+	
+admin of site/calendar
+events.stepitup2007/admin
+only accessible if you are administrator
+gives you list of all calendar, all events
+able to edit calendar/event data
+
+stepitup asking for new feature.	
+
+how to become an admin, host, user
+login not required for creating/hosting an event?
+login required for creating a site?
+
+
+how to set active calendar?
+checkout why permalinks doesn't work?
+
+done - fix destroy so that it uses :method => :delete
+done - seeing some bleed between stepitup and nwnw calendars?
+done - add permalink field for new/edit templates
+done - make permalink unique across sites (not across whole daysofaction db)
+
+set current site globally, options:
+Site class variable @@current
+global variable $CURRENT_SITE
+
+or use around_filter to wrap with_scope around it
+around_filter :scope_by_site
+	def scope_by_site
+		Calendar.with_scope :find => {:conditions => ["site_id = ?", @site.id]} do
+		yield
+	end
+end
+
+@site.calendars.find
+
+new route
+/:permalink/signup
+
+symbols in routes show up as params[:id]
+
+Q: How did he have different themes show up for nwnw.local_daysofaction.org and stepitup.local_daysofaction.org?
+A: Edited file /etc/hosts so that both URLs map to 127.0.0.1.  
+Q: What is account folder about in each MVC folder?
+A: 
+Q: What about themes?
+A: Loaded in applications.rb
+
+http://nwnw.local_daysofaction.org/calendar
+
+Site=Account
+Account=User
+Calendar=DayOfAction
+
+Rename Accounts to UsersController
+Rename Sites to AccountsController
+how do you rename in SVN?
+
+step 1
+account key
+contact info (admin stuff, email/pw)
+
+step 2
+add calendar
+url/date defaults
+
+Create a few events
+Poke around on different sites:
+  nwnw.local_daysofaction.org
+  stepitup.local_daysofaction.org
+
+modified /etc/hosts to have both URLs above point to local host (127.0.0.1)
+Create a calendar (will run into issues due to Calendar(1))
+
+index method on site controller
+change home map to controller => site
+welcome page, create new calendar
+if there are sites or calendar, show info, else invite to create event
+namespace problem with site_controller
+site => determined from URL
+come up with generic URL/name to set up new Site (i.e. Account)
+branding for this whole thing
+
+Changing site_controller; moved code to hacks.rb 
+	(StepItUp specific; one-time thing)
+Create index
+
+
+
+
+- remove login as attribute of user (drop from schema)
+- not required as attribute
+
+ROUTES:
+http://nwnw.local_daysofaction.org:3000/calendars/1/events/new
+http://nwnw.local_daysofaction.org:3000/calendars/1/events/list
+
+
+EventController::New()
+
+Error: Login is too short
+		 Login can't be blank
+
+
+Todo List:
+==========
+- DIA push not pull
+	+ Need to post internal (to daysofaction) site instead of DIA 
+	+ Make sign up page similar to current DIA sign up page
+	+ Don't poll DIA for updates to events
+	+ optional DIA begone from core code
+	+ Events controller should create events and *then* push to DIA
+PXD/SUZI - Permission levels: Admin, Host, Attendee
+	+ Admin has_one Site (or has_many)
+	+ Host has_many Events
+	+ Attendee has_many Events
+- Account management through admin: interfaces, model
+done - Find instances of hard coded calendar = 1
+done - Parse Site (Account?) from URL;
+	+ events.nowarnowarming.org - Site is nowarnowarming
+	+ Account location
+	+ Account has_one Theme
+- Local login (optional dependant / sync'd to DIA)
+- Sites / Calendars / Events
+	+ Site has_many Calendars
+	+ Calendar has_many Events
+- *We* do RSVP
+- Create page for distributed event
+- Create plugin architecture for CRMs (DIA, Salesforce)
+- Remove dependency on DIA-config.yml
+- Remove dependency on rflickr
+
+routes.rb allows you to map URL to a specific controller/method
+admin/:controller/:action/:id
+come up with what will show up for the admin page
+
+Definitions:
+Calendar: is a "Day of Action" with many events associated with it.
+  can also have a date range on which events can land on.  many
+  different locations. 
+
+Other names:  DistributedEvent DayOfAction Revent we.riseup.net
+nefolia, 
+distribute
+event
+decentralized-event
+
+done - ufpj: add search by category
+done - etc: move email triggers to revent; test to avoid duplicate emails
+done - etc: merge events from etc/screenings and workingfilms; tell them we can't do this
+done - ccd: issue with [HOST_NAME] in RSVP
+done - scrolling photos
+done - ufpj: add organization to user/event models
+done - downgrade slicehost
+done - make sure plain text emails work when html email not filled in
+done - get zheng working again
+done - implementing email triggers in revent; write tests, piston active_scaffold
+done - set-up flickr for ufpj (srcnyc/ulysses)
+done - zip search not working
+done - two navs for http://5yearstoomany.org/ that pull data from events.unitedforpeace.org/march19
+done * one that shows the most recently added events (5 should be plenty)
+done * one that shows the most recently updated events (including the adding of attachments or announcements)
+done - add int'l reports list page which allows searching by country
+done - fix unit/functional tests
+done - allow for choosing canada/usa on catalogcutdown
+done - fix reports map
+done - fix int'l search page so country selected country shows up in drop-down
+done - show all events on map
+done - get exception notification to start working again
+done - need flickr api keys for momsrising
+done - tracking codes?
+done - write tests for admin_email
+done - send email from info@womenarts.org
+done - allow 'developer' accounts access to everything
+done - change military time to AM/PM
+done - custom layout for reports/list
+done - tracking codes
+done - current_user.logger.debug
+done - captions on pictures
+done - slideshow
+done - fixed events/upcoming.xml (issues with theme_support)
+done - CA report map
+done - may need to upgrade memory before email blasts
+done - css vertical spacing in IE
+done - flash cached on search page 
+  * womenarts now using redirect, which causes delay flash appearance
+  * moved setting flash to after redirect (need to restart)
+done - add event/show link to rsvp/announcements/invitations
+  *added event details to "view & contact attendees" email
+  *can't add event details to rsvp; sent from dia (fixed w/email triggers in revent)
+  *announcements are displayed on event page (not sent via email)
+done - attachments broken
+done - test pagination on international page
+done - flickr account has been setup
+done - calendar can't handle super long flickr photoset on admin/calendars
+done - editable map intro text
+done - show nearby states
+done - change from address for activation email and others
+done - view all upcoming events
+done - country_code link on womenarts.org
+done - allow commas or semicolons in recipient list
+done - invite multiple attendees not working
+done - sample invitation text (field in calendar)
+fine - issue with internationalizing events:
+  ccd needs to map canadian events but womenarts does not want to
+  on womenarts: canadian events will show up as dots above map
+done - inviting new attendees not working; tried this on events.momsrising.org and it worked!
+done - need flickr api keys for catalogcutdown, everythingscool
+  catalogcutdown: lgn/pw - fephotoupload/bigtrees
+done - tagging issues on report/event create (see notifications)
+done - functional tests for email triggers
+done - fix search with fallback_lat/lng:  events that failed on live: 
+			190, 267, 820, 1202, 1338, 1544, 1667, 1752
+done - don't forget to enable validate presence of (description, location)
+done - errors creating report
+done - caching bug related to calendars show page (saw it with rolling/dec4)
+done - no postal codes for old catalogcutdown events; import into rolling calendar
+done - other requests from FE
+done - add host info to events export
+done - got attachments working for reports, size issue
+done - forestethics: add blog/reports to imported rolling events; RSS feed for reports 
+done - tags aren't allowed to have spaces in them, add validation for this (using regexp) on hostform
+disable - report/host email triggers by changing 'apply to calendar' from 'All Calendars' to 'Rolling Actions'
+done - before sept 25th into 'rattling cages' calendar.
+done - new calendar of old rattling cages actions (everything from before sept 25th).
+everything from before sept 25th, make public just the ones with reports.
+done - tag reports as feature. view for featured reports, tag videos as featured
+done - all screenings doesn't show 'after innocence' screening
+done - rails v2.0; incompatibilities with theme_support (plugin hasn't been updated in ages)
+  * redirect_back_or_default has been deprecated (used in admin_controller.rb)
+done - get off of theme_support; remove hack for everythingscool
+done - having trouble getting report processor to start; using: "ruby lib/report_processor_runner.rb start": caused by logger
+done - write tests for report uploading
+done - store attachments in tmp file and pass file pointers through starling
+done - get akismet instancing working

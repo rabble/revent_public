@@ -1,0 +1,47 @@
+<%= error_messages_for 'event', 'user' %>
+
+<!--[form:event]-->
+<p><label for="event_name">Name</label><br/>
+<%= f.text_field 'name'  %></p>
+
+<p><label for="event_description">Description</label><br/>
+<%= f.text_area 'description', :rows => 5  %></p>
+
+<p><label for="event_location">Address (real street addresses will allow us to map the event)</label><br/>
+<%= f.text_area 'location', :rows => 3  %></p>
+
+<p><label for="event_city">City</label><br/>
+<%= f.text_field 'city', :rows => 3  %></p>
+
+<p><label for="event_state">State/Province</label><br/>
+<%= f.select "state", DemocracyInAction::Helpers.state_options_for_select(:include_none=>true, :include_provinces=>true) %></p>
+
+<p><label for="event_postal_code">Zip/Postal Code</label><br/>
+<%= f.text_field 'postal_code' %></p>
+
+<p><label for="event_country">Country</label><br/>
+<%= f.select  "country_code", CountryCodes::countries_for_select('name', 'numeric').sort %></p>
+
+<p><label for="event_directions">Directions</label><br/>
+<%= f.text_area 'directions', :rows => 5  %></p>
+
+<p><label for="event_start">Start</label><br/>
+<%= f.datetime_select 'start', :twelve_hour => true, :minute_step => 15 %></p>
+
+<p><label for="event_end">End</label><br/>
+<%= f.datetime_select 'end', :twelve_hour => true, :minute_step => 15 %></p>
+
+<p><label for="event_private">Private</label>
+<%= f.check_box 'private' %> <em>(Do not list the event in state/zip searches.)</em></p>
+
+<p><label for="event_reports_disabled">Disable reports for this event</label>
+<%= f.check_box 'reports_disabled' %></p>
+
+<p><label for="event_max_attendees">Max Attendees</label><br/>
+<%= f.text_field 'max_attendees' %></p>
+
+<% unless (@categories = @event.calendar.categories.map {|c| [c.name, c.id] }).empty? %>
+<p><label for="event_category_id">Event Type</label><br/>
+<%= f.select "category_id", @categories, {:include_blank => true} %></p>
+<% end -%>
+<!--[eoform:event]-->

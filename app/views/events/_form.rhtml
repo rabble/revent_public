@@ -1,0 +1,30 @@
+<%= error_messages_for 'event' %>
+
+<!--[form:event]-->
+<p><label for="event_name">Name</label><br/>
+<%= f.text_field 'name'  %></p>
+
+<p><label for="event_description">Description</label><br/>
+<%= f.text_area 'description', :rows => 5  %></p>
+
+<p><label for="event_location">Location</label><br/>
+<%= f.text_area 'location', :rows => 3  %></p>
+
+<p><label for="event_directions">Directions</label><br/>
+<%= f.text_area 'directions', :rows => 5  %></p>
+
+<p><label for="event_city">City</label><br/>
+<%= f.text_field 'city', :rows => 3  %></p>
+
+<p><label for="event_state">State</label><br/>
+<%= f.text_field 'state', :rows => 3  %></p>
+
+<p><label for="event_postal_code">Zip</label><br/>
+<%= f.text_field 'postal_code', :rows => 3  %></p>
+
+<p><label for="event_start">Start</label><br/>
+<%= f.datetime_select 'start'  %></p>
+
+<p><label for="event_end">End</label><br/>
+<%= f.datetime_select 'end'  %></p>
+<!--[eoform:event]-->

@@ -1,0 +1,14 @@
+<div class="event-list-element">
+	<div class="event-list-location">
+    <%= link_to white_list(list_item.name), :permalink => list_item.calendar.permalink, :controller => 'events', :action => 'show', :id => list_item.id %><br />
+		<%= list_item.start.strftime("%B %d, %Y") %> at <%= list_item.start.strftime("%I:%M%p").downcase %>
+	</div>
+	<div class="event-list-city">
+    <%= white_list(list_item.city_state) %>
+	</div>
+    <% if @distance_from_search -%>
+     <div class="event-list-miles">
+       <%= @distance_from_search %> miles away
+     </div>
+    <% end -%>
+</div>

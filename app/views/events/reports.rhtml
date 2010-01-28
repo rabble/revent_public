@@ -1,0 +1,16 @@
+<h1><%= @event.name %></h1>
+
+<% if !@event.reports.empty? -%>
+<div>
+<% @event.reports.each do |r| -%>
+<p><%= r.text %></p>
+<% end -%>
+</div>
+<% end -%>
+
+
+<h2>add report</h2>
+<% form_for :report, Report.new(:event_id => @event.id), :url => { :controller => 'reports', :action => 'create' }, :html => { :multipart => true } do |f| -%>
+<%= render :partial => 'reports/form', :locals => { :f => f } %>
+<%= submit_tag %>
+<% end -%>

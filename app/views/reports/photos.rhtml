@@ -1,0 +1,32 @@
+<% content_for :header do %>
+<%= stylesheet_link_tag 'lightbox' %>
+<%= javascript_include_tag 'lightbox' %>
+<% end %>
+<div class="intro-title">
+	Pictures of the <%= @calendar.name %>
+</div>
+
+<div class="intro-text">
+Do you have a picture of a <%= @calendar.name.downcase %> that you attended? <br>
+Let us know by posting a <%= link_to 'report of your event', :permalink => @calendar.permalink, :controller => "reports", :action => "new" %>.
+</div>
+		
+
+<% @photos.group_by {|photo| photo.report.event.state}.sort.each do |state, photos| %>
+	<h3><%= state %></h3>
+
+	<div id="report_images">
+  <% photos.each do |attachment| %>
+		<div class="report_image">
+      <%= link_to(image_tag(attachment.public_filename(:display)), {:controller => :reports, :action => :lightbox, :id => attachment.id}, :class => 'lbOn') %>
+      <div style="media-caption">
+        <%= attachment.caption %>
+      </div>
+    </div>
+    <% report = attachment.report %>
+    <%= link_to("#{report.event.city}, #{report.event.state}", report_url(:event_id => report.event) ) %>: <%= report.event.name %>
+	</div>		
+
+  <% end %>
+<% end %>
+ <%= render :partial =>'reports/report_nav' %>

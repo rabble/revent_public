@@ -1,0 +1,4 @@
+
+<%= link_to 'Export All Users', {:action => :export} %>
+
+<%= render  :active_scaffold => "admin/users", :constraints => { :site_id => Site.current.id } %>

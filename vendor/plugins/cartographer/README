@@ -1,0 +1,60 @@
+ == Installation
+
+ - Put this file (cartographer.rb) in your RAILS_ROOT/vendor/plugins/ directory
+ - Edit the GOOGLE_MAPS_API_KEYS constant to contain the proper keys
+   (You may include keys for many different URIs, and it will pick the
+   right one based on the current hostname/controller/action.)
+ - Include the module in your RAILS_ROOT/config/environment.rb (or somewhere)
+    include Cartographer
+
+ == Upgrading to version 2 of the Google Maps API
+
+ For those that are upgrading cartographer from the older versions that used version 1 of the Google Maps API, there are some things that you need to fix in your applications.
+
+ - Coordinates now are in the order of latitude then longitude to match the new GLatLng Class.
+ - Map types have slightly changed to accommodate the new api. The :map type has been replaced by the :normal type
+ - Zoom levels have changed in version 2. Please refer to the upgrade guide for further details: http://maps.google.com/apis/maps/documentation/upgrade.html
+
+
+ == Put the google script in your layouts (RAILS_ROOT/app/views/layouts/)
+
+  <html>
+  <head>
+    <%= Cartographer::GMap::Header.header_for(request) %>
+    [...]
+  </head>
+  <body>
+
+ == Making a Map
+     in your controller:
+ 
+  Set things in the initializer:
+  @map = Cartographer::Map.new( :name => 'mymap', 
+      :width => 300, 
+      :center => [33, -110], 
+      :controls => [ :zoom, :large ],
+      :draggable => false,
+      :debug => true)
+ 
+  You may modify stuff after the map is created:
+ @map.height = 450
+ @map.center = [33, -121]
+ @map.type = :satellite
+ @map.controls << :type
+ @map.markers << Cartographer::Marker.new( :position => [33, -110], :info_window => 'Clicky clicky!!', :map => @map )
+
+     in your view:
+
+ <% @map.zoom = 4 %>
+ [...]
+  This is the only required part:
+ <%= @map.to_html %>
+
+ == Making Markers
+
+ @marker = Marker.new(:position => [latitude, longitude],
+                     :name => "my_marker",
+                     :info_window => "You <i>clicked</i> on my marker.")
+
+   if you don't add your marker to a map, it won't be displayed:
+ @map.markers << @marker

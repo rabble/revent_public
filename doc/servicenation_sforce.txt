@@ -1,0 +1,57 @@
+http://cleanair.highgroove.com/articles/2006/07/27/synchorizing-a-salesforce-and-ruby-on-rails-database
+http://www.salesforce.com/us/developer/docs/api/index.htm
+http://activesfdc.rubyforge.org/
+
+=== salesforce sandbox account ===
+:adapter => 'activesalesforce',
+:username => 'info@radicaldesigns.org',
+:password => 'salesforce'
+# :url => https://login.salesforce.com/
+
+http://salesforceonrails.com/
+salesforce api secuirty token: fBzpX1QJsZhuAi2SqmWlxpGPO
+
+Event
+   ActivityDate = date
+   ActivityDateTime = dateTime required
+   Description
+   DurationInMinutes (required) int
+   Location string
+   IsChild = true boolean ??????
+   IsGroupEvent = true
+   Type may need to set in salesforce as it is a pick type
+   Subject  - event name
+   WhoId = host contactid
+   OwnerId = ?? admin 
+   AccountId ??
+	(is it just me or is it crazy that events do not have geo based locations?)
+
+EventAttendee
+   AttendeeId = contactid
+   ChildEventId????
+   EventId
+   Status = Accepted
+   RespondedDate dateTime
+
+Contacts
+   Email
+   FirstName
+   LastName (required)
+   Phone
+   MailingCity
+   MailingCountry
+   MailingPostalCode
+   MailingStreet
+   OwnerId = ?? admin  # set automatically to salesforce config account
+   AccountId ??
+
+Unsure how to map this data.
+
+Tags for Contacts:
+   Event_Tag
+   Event_Tag_Host
+   Event_Tag_Participant
+   Event_Tag_Reporter
+
+Tags for Events
+     Event_Tag

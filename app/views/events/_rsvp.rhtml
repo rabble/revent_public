@@ -1,0 +1,44 @@
+<h3>RSVP</h3>Please let us know you will be coming by RSVPing below
+
+<div id="signupForm" class="signupForm">
+
+<% form_for :user, :url => { :action => "rsvp", :id => event.id }, :html => {:id => 'event-rsvp-form'} do |f| -%>
+  <%= hidden_field_tag "user[democracy_in_action][supporter][link][event]", event.democracy_in_action_key %>
+  <%= hidden_field_tag "user[democracy_in_action][supporter][_Status]", "Signed Up" %>
+  <%= hidden_field_tag "user[democracy_in_action][supporter][_Type]", "Supporter" %>
+
+
+  <% if @calendar.rsvp_dia_group_key %>
+  <%= hidden_field_tag "user[democracy_in_action][supporter][link][groups]", @calendar.rsvp_dia_group_key %>	
+  <%- end %>
+  <% if @calendar.rsvp_dia_trigger_key %>
+  <%= hidden_field_tag "user[democracy_in_action][supporter][email_trigger_KEYS]", @calendar.rsvp_dia_trigger_key %>
+   <%- end %>
+	<TABLE class="dia_field">
+
+	<TR>
+  <td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_First_Name">First Name</td><td valign="top"><%= f.text_field 'first_name', :size => 30, :class => "required inputStyle", :title => "Please enter your first name." %></td><td class="dia_required"></td>
+       </TR><TR><td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_Last_Name">Last Name</td><td valign="top"><%= f.text_field 'last_name', :size => 30, :class => "required inputStyle", :title => "Please enter your last name."  %></td><td class="dia_required"></td>
+       </TR><TR><td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_Email">Email</td><td valign="top"><%= f.text_field 'email', :size => 30, :class => "required inputStyle", :title => "Please enter a valid email address." %></td><td class="dia_required"></td>
+
+	    </TR><TR><td valign="top" align="right" class="dia_field_name" id="dia_field_name_data_Phone">Phone</td><td valign="top"><%= f.text_field 'phone', "size" => 30  %></td><td class="dia_required"></td>
+	    </TR><TR><td align="right" class="dia_field_name">Zip/Postal Code</td><td><%= f.text_field 'postal_code', "size" => 10  %> 
+
+	      </td>
+	      <td class="dia_required">
+
+	      </td></TR><TR>
+	</TR></TABLE>
+
+<% if @calendar.rsvp_redirect %>
+	<%= hidden_field_tag "redirect", @calendar.rsvp_redirect %>
+<% end -%>
+
+	<%= submit_tag "Sign up!" %>
+<% end -%>
+
+</div>
+<%= javascript_include_tag "validation.js" %>
+<script type="text/javascript" language="javascript">
+  var valid = new Validation("event-rsvp-form", {useTitles : true});
+</script>

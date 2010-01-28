@@ -1,0 +1,11 @@
+xml.data do
+  @reports.each do |r|
+    xml.event do
+      xml.location(r.event.city_state)
+      xml.comment(r.attachments.detect{|a| a.primary?}.caption || r.event.name)
+      #xml.image(r.attachments.first.public_filename(:display))
+      xml.image("/flashimages/#{@calendar.permalink}/#{r.event.state}_#{r.event.id}.jpg")
+      xml.link(report_url(:permalink => @calendar.permalink, :event_id => r.event.id))
+    end
+  end
+end

@@ -1,0 +1,13 @@
+<tr class ="profile_item_row">
+  <td>
+    <% if hosting %>
+      <%= link_to 'Manage', :action => 'show', :id => event %>
+    <% else %>
+      <%= link_to 'Show', :controller => '/events', :action => 'show', :id => event %>
+      <%= link_to 'Remove', :action => 'remove', :id => event %>
+    <% end %>
+  </td>
+	<td><%= event.city  %></td>
+	<td><%= event.state %></td>
+	<td><%= event.name  %></td>
+</tr>

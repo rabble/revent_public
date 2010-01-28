@@ -1,0 +1,18 @@
+Generating latest zip, it may take a while, you'll find it here when it's done:
+<br/><br/>
+Latest download:<br/>&nbsp;
+<% if @zip_file %>
+  <%= link_to "#{File.basename(@zip_file[:path])} (#{(@zip_file[:size]) / 1024 / 1024} MB)", @zip_file[:path] %> 
+<% else -%>
+  No new zip file.
+<% end -%>
+<br/>
+<br/>
+<% if @zip_files and @zip_files.any? %>
+Previous downloads:<br/>&nbsp;
+  <% @zip_files.each do |f| -%>
+  <%= link_to "#{File.basename(f[:path])} (#{f[:size]} MB)", f[:path] %> 
+  <% end -%>
+<% end -%>
+<br/>
+<br/>

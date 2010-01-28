@@ -1,0 +1,16 @@
+<div class="banner">User Search Results:</div>
+<div class="list_table">
+<table class="list_table">
+<tbody class="system">
+  <tr class="list_column_header">
+		<td >Name</td>
+		<td>Email</td>
+		<td>Address</td>
+		<td>Events</td>
+    <td></td>
+  </tr>
+	<br/><%= render :partial => 'user', :collection => @users %>
+</tbody>
+</table>
+</div>
+<br/><br/><%= link_to 'Back to users', :controller => 'admin/users' %>

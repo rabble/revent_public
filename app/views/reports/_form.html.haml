@@ -1,0 +1,123 @@
+= error_messages_for :report
+*required fields
+.honeypot 
+  %input{:type=>'text', :name=>"honeypot"}
+
+.section.event
+%p
+  %label{ :for => "event_id" }
+    *Select Your Event
+  %br/
+  = f.select 'event_id', events_select, :include_blank => true
+  - f.fields_for :reporter_data do |ff|
+    %p
+      = ff.label :first_name, "*First Name:"
+      %br/
+      = ff.text_field 'first_name', :title => "Please enter your first name", :class => "required inputStyle", :size => 36
+    %p
+      = ff.label :last_name, "*Last Name:"
+      %br/
+      = ff.text_field 'last_name', :title => "Please enter your last name", :class => "required inputStyle", :size => 36
+    %p
+      = ff.label :email, "*Your Email Address (will not be public):"
+      %br/
+      = ff.text_field 'email', :title => "Please enter a valid email address", :class => "required inputStyle", :size => 36, :maxlength => "34", :style => "display:inline"
+
+    - if @calendar.report_dia_trigger_key
+      = hidden_field_tag "user[democracy_in_action][supporter][email_trigger_KEYS]", @calendar.report_dia_trigger_key
+    - if @calendar.report_dia_group_key
+      = hidden_field_tag "user[democracy_in_action][supporter][link][groups]", @calendar.report_dia_group_key
+  %p
+    = f.label :text, "*Tell Us About What Happened at Your Event:"
+    %br/
+    = f.text_area 'text', :rows => 7
+  %p
+    = f.label :attendees, "Estimated Attendance:"
+    %br/
+    = f.text_field 'attendees',  :size=>10
+
+
+  .form_block
+    %p.form_subtitle
+      Upload Images
+    We support images up to 2 megabytes in size in the .gif, .jpg, or .png format.
+    %br/
+    For large file uploads this page may take awhile to load.  All of your pictures will also be uploaded onto Flickr.
+    %p
+      - allowed_attachments = 6
+      - f.fields_for :attachment_data do |ff|
+        - 1.upto( allowed_attachments ) do |n|
+          .report_add_attachment{ :id=>"report_add_photo_#{n}", :style => ( n > 1 ?  "display:none;" : "") }
+
+            %p
+              = ff.label "#{n}_uploaded_data" , "File:"
+              %br
+              = ff.file_field "uploaded_data", :index => n
+
+            %p
+              = ff.label "#{n}_caption" , "Caption:"
+              %br/
+              = ff.text_area "caption", :rows => 3, :cols => 40, :index => n
+
+            %p
+              = ff.check_box "primary", :index => n
+              = ff.label "#{n}_primary", "Check this box if the image is the main event photo"
+
+            - if n < allowed_attachments 
+              %p.report_add_another
+                = link_to_function 'Add Another Photo', visual_effect(:toggle_blind,"report_add_photo_#{n+1}")
+
+    .form_block
+    %p.form_subtitle
+      Attach a video from your event
+    %p.description
+      To include your videos in your event report, you first need to upload them to YouTube.
+      - if @calendar.flickr_tag
+        = "After you've uploaded your video, please add the tag '#{@calendar.flickr_tag}'  so we can easily compile all the videos."
+
+      Once you've done that, you can copy the video's "embed code" and paste it in the box below.
+
+    %p
+      Upload your video to YouTube
+      %a{ :href => "http://youtube.com/signup?next=/my_videos_upload", :target => "_blank" } here.
+
+  - allowed_embeds = 4
+  - f.fields_for :embed_data do |ff|
+    - 1.upto(allowed_embeds) do |n|
+      .report_add_attachment{ :id => "report_add_video_#{n}", :style => (n > 1 and @report.errors.empty? ? "display:none;" : "") }
+        %p
+          = ff.label "#{n}_html", "Video Embed Code:"
+          %br/
+          = ff.text_area "html", :rows => 3, :cols => 40, :index => n
+        %p
+          = ff.label "#{n}_caption", "Video Title:"
+          = ff.text_field "caption", :size => 40, :index => n
+        - if n < allowed_embeds 
+          %p.report_add_another
+            = link_to_function 'Add Another Video', visual_effect(:toggle_blind,"report_add_video_#{n+1}")
+  .form_block
+    %p.form_subtitle
+      Press Coverage
+    Did the press cover your event?
+    %br/
+    If so, paste in links to the press coverage below.
+    %br/
+    - allowed_press_links = 4
+    - f.fields_for :press_link_data do |ff|
+      - 1.upto(allowed_press_links) do |n|
+        .report_add_attachment{ :id => "report_add_press_#{n}", :style => (n > 1 and @report.errors.empty? ? "display:none;" : "")}
+          %p 
+            = ff.label "#{n}_url", "Press Coverage URL:"
+            %br/
+            = ff.text_field "url", :size => 40, :index => n
+            %em
+              (start with http://)
+          %p 
+            = ff.label "#{n}_text", "Press Coverage Title/Outlet:"
+            %br/
+            = ff.text_field "text", :size => 40, :index => n
+          - if n < allowed_press_links
+            %p.report_add_another
+              = link_to_function 'Add Press Coverage', visual_effect(:toggle_blind,"report_add_press_#{n+1}")
+- if @calendar.report_redirect
+  = hidden_field_tag "redirect", @calendar.report_redirect

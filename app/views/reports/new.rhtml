@@ -1,0 +1,48 @@
+<% content_for :header do %>
+<%= javascript_include_tag 'effects' %>
+<% end %>
+<div id='detail-container'>
+	<div class="intro-title">
+		<% if @calendar.report_title_text %>
+			<%=  @calendar.report_title_text %>
+		<% else %>
+		Tell us what happened at your event
+		<% end -%>
+	</div>
+
+	<div class="intro-text">
+		<% if @calendar.report_intro_text %>
+			<%=  @calendar.report_intro_text %>
+		<% else %>
+		Please take a few minutes to share your stories, videos, and pictures from your event.  This information will be displayed publically.		<% end -%>
+	</div>
+
+<% form_for :report, @report, :url => { :controller => 'reports', :permalink => @calendar.permalink, :action => 'create' }, :html => {:id => 'report-back-form',  :multipart => true } do |f| -%>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  
+  <div align="center">
+  <h3>Please allow several minutes for your report to upload.</h3>
+  <table>
+   <tr>
+	 <td id="create_button"><%= submit_tag "Submit Your Event Report", :onclick => "Element.hide('create_button'); Element.show('spinner')"  %></td>
+    <td id="spinner" style="font-style: font-size: 90%; display: none;"><%= image_tag 'spinner.gif' %> Uploading Report</td>
+   </tr>
+  </table>
+
+<br>
+</div>
+  After you are taken to the next page, please allow up to an hour for your report to be posted on the website
+  <br> <br>
+
+
+
+<% end -%>
+
+
+ <%= render :partial =>'reports/report_nav' %>
+</div>
+
+<%= javascript_include_tag "validation.js" %>
+<script type="text/javascript" language="javascript">
+  var valid = new Validation("report-back-form", {useTitles : true});
+</script>

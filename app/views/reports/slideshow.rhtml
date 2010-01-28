@@ -1,0 +1,6 @@
+<div style="width:500px;height:700px;margin-right:auto;margin-left:auto;">
+  <iframe align=center src=<%= @slideshow_url %> frameBorder=0 width=500 scrolling=no height=500></iframe>
+  <br /><br />
+  <%= link_to( 'Return Back To Report', report_url(:permalink => @calendar.permalink, :event_id => @event_id) ) %><br/>
+</div>
+ <%= render :partial =>'reports/report_nav' %>

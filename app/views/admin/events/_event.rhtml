@@ -1,0 +1,17 @@
+<tr bordercolor="#333333" bgcolor="#E5E5E5" onMouseover="this.bgColor='#CCFFCC';" onMouseout="this.bgColor='#E5E5E5';">
+ 
+  <td><%= event.start.strftime('%m/%e') %></td>
+  <td><%= event.name %></td>
+  <td><%= event.city %> <%= event.state %></td>
+    <td>(<%= event.latitude || '<span style="color: red">X</span>' %>, <%= event.longitude || '<span style="color: red">X</span>' %>)</td> 
+  <td><%= event.host ? link_to(event.host.first_name + " " + event.host.last_name, url_for(:controller => '/events', :action => :host, :id => event )) : 'none' %></td>
+  
+
+   <td><%= event.tags.collect {|t| t.name}.join(', ') %></td>
+   <td><%= event.category.name if event.category %></td>
+      <td><%= event.attendees.length %></td>
+   <td><%= event.reports.length %></td>
+  <td><%= link_to 'Show', url_for(:controller => '/events', :action => :show, :id => event) %>
+  <td><%= link_to 'Manage', url_for(:controller => 'account/events', :action => :show, :id => event) %>
+  <td><%= link_to 'Delete', url_for(:action => :destroy, :id => event), :confirm => 'Are you sure?' %>
+</tr>
