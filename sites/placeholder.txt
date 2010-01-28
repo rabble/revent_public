@@ -1,0 +1,1 @@
+This is a placeholder to make the sites folder part of the repo. Do not delete.
